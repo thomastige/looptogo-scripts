@@ -1,0 +1,22 @@
+// Create a new song section in a chain. A Record track is added, followed by a Play track of three times its length.
+// Arguments:
+//		1 : Length of the Record track.
+//		2 : Name of the new song section.
+
+variable NUMBER_OF_RECORD_LOOPS 1
+variable NUMBER_OF_PLAY_LOOPS 3
+variable BAR_COUNT 4
+
+// Calculate coordinates for Record loop
+variable recordStart $songBar
+variable recordLength $BAR_COUNT * $NUMBER_OF_RECORD_LOOPS
+variable recordEnd $recordStart + $BAR_COUNT
+
+// Calculate coordinates for Play loop
+variable playStart $recordStart + $BAR_COUNT
+variable playLength $NUMBER_OF_PLAY_LOOPS * $BAR_COUNT
+variable playEnd $playLength + $playStart
+
+// Create loops
+addRecordLoop "Test" "loop_0" $recordStart $recordEnd
+addPlayLoop "Test" "loop_0" $playStart $playEnd
