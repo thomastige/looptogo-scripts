@@ -1,22 +1,65 @@
 // Create a new song section in a chain. A Record track is added, followed by a Play track of three times its length.
 // Arguments:
-//		1 : Length of the Record track.
-//		2 : Name of the new song section.
+//		1 : String. Length of the Record track.
+//		2 : String. Name of the new song section.
+// Optional Arguments
+//      3 : Boolean. Create a marker. By default, this is set to false.
+//      4 : Boolean. Add Record loop. By default, this is set to true. Setting it to false will create a section that only contains a play loop.
 
-variable NUMBER_OF_RECORD_LOOPS 1
-variable NUMBER_OF_PLAY_LOOPS 3
-variable BAR_COUNT 4
+// ----- handle arguments
 
-// Calculate coordinates for Record loop
-variable recordStart $songBar
-variable recordLength $BAR_COUNT * $NUMBER_OF_RECORD_LOOPS
-variable recordEnd $recordStart + $BAR_COUNT
+if $arg1
+    variable barCount $arg1
+else    
+    variable barCount 4
+endIf
+
+if $arg2
+    variable sectionName $arg2
+else    
+    variable sectionName "undefined"
+endIf
+
+if $arg3
+    variable createMarkerEnabled $arg3
+else    
+    variable createMarkerEnabled true
+endIf
+
+if $arg4
+    variable recordTrackEnabled $arg4
+else    
+    variable recordTrackEnabled true
+endIf
+
+// ----- end handle arguments
+
+if $recordTrackEnabled = true
+    variable numberOfRecordLoops 1
+    variable numberOfPlayLoops 3
+
+    // Calculate coordinates for Record loop
+    variable recordStart $songBar
+    variable recordLength $barCount * $numberOfRecordLoops
+    variable recordEnd $recordStart + $barCount
+
+    addRecordLoop "Test" $sectionName $recordStart $recordEnd
+    
+    variable playStart $recordStart + $barCount
+else
+    variable numberOfRecordLoops 0
+    variable numberOfPlayLoops 4
+    variable playStart $songBar
+endIf
+
+if $createMarkerEnabled = true
+    // Currently using temporary section markers until it is possible to detect if a marker exists to avoid overlapping many markers.
+    addTemporarySectionMarker $songBar $sectionName
+endIf
 
 // Calculate coordinates for Play loop
-variable playStart $recordStart + $BAR_COUNT
-variable playLength $NUMBER_OF_PLAY_LOOPS * $BAR_COUNT
+variable playLength $numberOfPlayLoops * $barCount
 variable playEnd $playLength + $playStart
 
 // Create loops
-addRecordLoop "Test" "loop_0" $recordStart $recordEnd
-addPlayLoop "Test" "loop_0" $playStart $playEnd
+addPlayLoop "Test" $sectionName $playStart $playEnd
