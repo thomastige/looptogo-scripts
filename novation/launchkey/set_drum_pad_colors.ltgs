@@ -1,0 +1,35 @@
+// Sets colors for the 8 pads in Drum Mode. They are represented by Numbers 0-7 on first row, 8-15 on second row.
+// Colors match instruments.
+// Kick: red
+// Hi-Hat: Yellow
+// Ride: Orange
+// Crash: Green
+// Snare: Blue
+// Toms: Purple
+
+// [Snare]  [Click] [ ]     [ ]     [Hi-Hat (closed)]   [Hi-Hat (open)] [Ride]  [Ride]
+// [Kick]   [Tom]   [Tom]   [ ]     [Floor Tom]         [Crash]         [Crash] [Crash]
+
+variable pad0   5
+variable pad1   44
+variable pad2   44
+variable pad3   0
+variable pad4   41
+variable pad5   37
+variable pad6   0
+variable pad7   0
+variable pad8   53
+variable pad9   21
+variable pad10  21
+variable pad11  21
+variable pad12  13
+variable pad13  13
+variable pad14  9
+variable pad15  9
+
+for iterator 0 15
+    variable padIndex 36+$iterator
+    variable color pad & $iterator
+    print $padIndex & " is being set to " & $$color
+    sendMidiNoteOn "LKMK3_2_10" $padIndex $$color
+endFor

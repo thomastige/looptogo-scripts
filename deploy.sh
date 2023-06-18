@@ -1,0 +1,1 @@
+cp ./**/*.ltgs $LOOPTOGO/Scripts

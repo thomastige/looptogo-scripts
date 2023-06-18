@@ -1,0 +1,4 @@
+// Enter DAW Mode - allows for the functionality to work
+sendMidiNoteOn "LKMK3_2_16" 12 127
+// sendMidiRawBytes "LKMK3_OUT_16" "9F, 0C, 7F"
+sendMidiNoteOn "LKMK3_2_10" 40 05
