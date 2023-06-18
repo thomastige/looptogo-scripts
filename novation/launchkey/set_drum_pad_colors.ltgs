@@ -10,22 +10,24 @@
 // [Snare]  [Click] [ ]     [ ]     [Hi-Hat (closed)]   [Hi-Hat (open)] [Ride]  [Ride]
 // [Kick]   [Tom]   [Tom]   [ ]     [Floor Tom]         [Crash]         [Crash] [Crash]
 
-variable pad0   5
-variable pad1   44
-variable pad2   44
-variable pad3   0
-variable pad4   41
-variable pad5   37
-variable pad6   0
-variable pad7   0
-variable pad8   53
-variable pad9   21
-variable pad10  21
-variable pad11  21
-variable pad12  13
-variable pad13  13
-variable pad14  9
-variable pad15  9
+loadScript constants.ltgs
+
+variable pad0   $RED
+variable pad1   $PINK
+variable pad2   $PINK
+variable pad3   $OFF
+variable pad4   $DARK_BLUE
+variable pad5   $BLUE
+variable pad6   $OFF
+variable pad7   $OFF
+variable pad8   $PINK
+variable pad9   $GREEN
+variable pad10  $GREEN
+variable pad11  $GREEN
+variable pad12  $YELLOW
+variable pad13  $YELLOW
+variable pad14  $ORANGE
+variable pad15  $ORANGE
 
 for iterator 0 15
     variable padIndex 36+$iterator

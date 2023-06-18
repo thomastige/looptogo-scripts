@@ -1,1 +1,3 @@
-sendMidiNoteOn "LKMK3_2_16" 12 0
+loadScript constants.ltgs
+
+sendMidiNoteOn $MIDI_OUT_16 12 $OFF
