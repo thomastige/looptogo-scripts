@@ -1,0 +1,69 @@
+# This script builds a structure that represents the looper view. It produces the structures 
+# in variables that follow the naming pattern: loop_$trackName_$loopIndex.
+# Variable trackCounter_$trackName also exists to indicate how many loops exist on a track.
+# The indexes go from left to right, based on start time. The variable holds the Loop ID.
+
+for loopIndexForTrack 1 $nbLoops
+    # print "DEBUG - NEW LOOP ITERATION --------- i=" & $loopIndexForTrack
+    variable _loopID	loopID & $loopIndexForTrack
+    variable loopID 	$$_loopID
+    
+    getLoopType loopType $loopID
+    getLoopStart loopStart $loopID
+    getLoopEnd loopEnd $loopID
+    getLoopTrack loopTrack $loopID
+
+    # Track counter - maintain how many loops are on the track
+    variable _trackLoopCounter "trackCounter_" & $loopTrack
+    if $$_trackLoopCounter
+        variable $_trackLoopCounter $$_trackLoopCounter + 1
+        # print "DEBUG - Updated Track Counter for " & $loopTrack & ". Variable Name: " & $_trackLoopCounter & ". Variable value: " & $$_trackLoopCounter
+    else
+        # print "DEBUG - Creating new Track Counter for " & $loopTrack
+        variable $_trackLoopCounter 1
+        # print "DEBUG - Created new variable. Variable Name: " & $_trackLoopCounter & ". Variable value: " & $$_trackLoopCounter
+    endIf
+
+    # Store how many counters there are for this loop.
+    variable trackLoopCounter $$_trackLoopCounter
+    # print "DEBUG - trackLoopCounter: " & $trackLoopCounter
+
+    # If this is the first loop for this track, just insert it.
+    # Otherwise, find the proper insertion index.
+    if $trackLoopCounter = 1
+        # print "DEBUG - This is the first loop to be inserted."
+        variable baseInsertAt $trackLoopCounter
+        variable insertAt $baseInsertAt
+        loadScript track_loop_map_insert.ltgs
+        variable variableName loop_ & $loopTrack & _ & $trackLoopCounter
+    else
+        # Insert the loop in the list based on its start time.
+        variable break 0
+        variable down 0
+        for j 1 $trackLoopCounter
+            if $break = 0
+                variable _indexedLoop loop_ & $loopTrack & _ & $j
+                # print "DEBUG - map - _indexedLoop: " & $_indexedLoop & ". indexedLoop: " & $$_indexedLoop
+                getLoopStart indexedStart $$_indexedLoop
+                # print "DEBUG - map - Loop Start: " & $loopStart & ". Indexed Start: " & $indexedStart
+                variable baseInsertAt $j
+                variable insertAt $baseInsertAt
+                if $$_indexedLoop = 0
+                    # print "DEBUG - Found an empty slot. Inserting Loop ID at index " & $j
+                    # print "DEBUG - map - Insert at:" & $insertAt
+                    loadScript track_loop_map_insert.ltgs
+                    variable break 1
+                endIf
+                if $loopStart < $indexedStart
+                    # print "DEBUG - map - Loop Start is smaller than Indexed Start. Insert at:" & $insertAt
+                    # print "DEBUG - Inserting the loop in the map."
+                    loadScript track_loop_map_insert.ltgs
+                    variable break 1
+                endIf
+            endIf
+        endFor
+    endIf
+    # loadScript track_loop_print_state.ltgs
+endFor
+
+

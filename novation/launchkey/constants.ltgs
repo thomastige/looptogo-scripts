@@ -1,6 +1,7 @@
 // MIDI Configurations
-variable    MIDI_OUT_16 "LKMK3_2_16"
+variable    MIDI_OUT_1 "LKMK3_2_1"
 variable    MIDI_OUT_10 "LKMK3_2_10"
+variable    MIDI_OUT_16 "LKMK3_2_16"
 
 // Colors
 variable    RED         5

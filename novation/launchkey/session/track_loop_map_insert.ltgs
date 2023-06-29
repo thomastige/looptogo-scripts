@@ -1,0 +1,28 @@
+# This script calls itself recursively and pushes all elements to the right.
+# arg1: The index at which the element is being inserted.
+
+# print "DEBUG - track_loop_map_insert - insertAt:" & $insertAt & ". baseInsertAt: " & $baseInsertAt 
+
+variable variableName loop_ & $loopTrack & _ & $insertAt
+variable counter $insertAt
+variable newVariableName loop_ & $loopTrack & _ & $counter
+
+while $$newVariableName 
+    variable counter $counter + 1
+    variable newVariableName loop_ & $loopTrack & _ & $counter
+endWhile
+
+# print "DEBUG - map insert - found empty at index " & $counter
+
+while $counter > $insertAt 
+    variable newHighestVariableName loop_ & $loopTrack & _ & $counter
+    variable leftIndex $counter - 1
+    variable _leftLoop loop_ & $loopTrack & _ & $leftIndex
+    # print "DEBUG - map - setting insertingLoop - new highest: " & $newHighestVariableName & " left loop: " & $_leftLoop
+    variable $newHighestVariableName $$_leftLoop
+    variable counter $counter - 1
+endWhile
+
+variable $variableName $loopID
+
+# loadScript track_loop_print_state.ltgs

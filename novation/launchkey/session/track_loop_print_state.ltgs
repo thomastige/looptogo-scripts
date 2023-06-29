@@ -1,0 +1,10 @@
+variable trackName New
+
+print "---------------"
+for printer 1 10
+    variable _var loop_ & $trackName & _ & $printer
+    variable _varStart _var & _start
+    getLoopStart $_varStart $$_var
+    print $_var & " : " & $$_var & ". Starting at: " & $$_varStart
+endFor
+print "---------------"

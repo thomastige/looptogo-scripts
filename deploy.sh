@@ -1,1 +1,1 @@
-cp ./**/*.ltgs $LOOPTOGO/Scripts
+cp `find . -name "*.ltgs"` $LOOPTOGO/Scripts
