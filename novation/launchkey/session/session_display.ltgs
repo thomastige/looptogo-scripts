@@ -49,3 +49,5 @@ for trackPadIterator 1 $ROW_LENGTH
         sendMidiNoteOn "LKMK3_2_1" $padIndex 0
     endIf
 endFor
+
+loadScript test.ltgs

@@ -1,1 +1,0 @@
-cp `find . -name "*.ltgs"` $LOOPTOGO/Scripts
