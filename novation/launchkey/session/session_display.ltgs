@@ -1,10 +1,4 @@
-loadScript constants.ltgs
-
-variable    ROW_LENGTH      8
-// Top Row: 96 - 103
-variable    TOP_ROW_0       95
-// Bottom Row: 112 - 119
-variable    BOTTOM_ROW_0    111
+loadScript novation\launchkey\constants.ltgs
 
 ### Top Row
 # Set pads to blue for each track, except green if selected
@@ -31,8 +25,8 @@ endFor
 # Sort loops by start
 
 # build structure for the track and the ordered loops
-loadScript track_loop_map.ltgs
-# loadScript track_loop_print_state.ltgs
+loadScript novation\launchkey\session\track_loop_map.ltgs
+# loadScript novation\launchkey\session\track_loop_print_state.ltgs
 
 
 variable _selectedTrackLoopCount trackCounter_ & $selectedTrack
@@ -42,12 +36,10 @@ for trackPadIterator 1 $ROW_LENGTH
     variable padIndex $BOTTOM_ROW_0 + $trackPadIterator
     variable _loopID loop_ & $selectedTrack & _ & $trackPadIterator
     variable loopID $$_loopID
-    print "loop ID variable: " & $_loopID
+    # print "loop ID variable: " & $_loopID
     if $loopID
         sendMidiNoteOn "LKMK3_2_1" $padIndex $ORANGE
     else
         sendMidiNoteOn "LKMK3_2_1" $padIndex 0
     endIf
 endFor
-
-loadScript test.ltgs

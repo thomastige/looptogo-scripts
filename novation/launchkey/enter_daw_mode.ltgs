@@ -1,4 +1,4 @@
-loadScript constants.ltgs
+loadScript novation\launchkey\constants.ltgs
 
 // Enter DAW Mode - allows for the functionality to work
 sendMidiNoteOn $MIDI_OUT_16 12 $ON

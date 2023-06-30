@@ -3,6 +3,9 @@
 # Variable trackCounter_$trackName also exists to indicate how many loops exist on a track.
 # The indexes go from left to right, based on start time. The variable holds the Loop ID.
 
+// Clear the map before building a new one
+loadScript novation\launchkey\session\clear_track_loop_map.ltgs
+
 for loopIndexForTrack 1 $nbLoops
     # print "DEBUG - NEW LOOP ITERATION --------- i=" & $loopIndexForTrack
     variable _loopID	loopID & $loopIndexForTrack
@@ -34,7 +37,7 @@ for loopIndexForTrack 1 $nbLoops
         # print "DEBUG - This is the first loop to be inserted."
         variable baseInsertAt $trackLoopCounter
         variable insertAt $baseInsertAt
-        loadScript track_loop_map_insert.ltgs
+        loadScript novation\launchkey\session\track_loop_map_insert.ltgs
         variable variableName loop_ & $loopTrack & _ & $trackLoopCounter
     else
         # Insert the loop in the list based on its start time.
@@ -51,19 +54,19 @@ for loopIndexForTrack 1 $nbLoops
                 if $$_indexedLoop = 0
                     # print "DEBUG - Found an empty slot. Inserting Loop ID at index " & $j
                     # print "DEBUG - map - Insert at:" & $insertAt
-                    loadScript track_loop_map_insert.ltgs
+                    loadScript novation\launchkey\session\track_loop_map_insert.ltgs
                     variable break 1
                 endIf
                 if $loopStart < $indexedStart
                     # print "DEBUG - map - Loop Start is smaller than Indexed Start. Insert at:" & $insertAt
                     # print "DEBUG - Inserting the loop in the map."
-                    loadScript track_loop_map_insert.ltgs
+                    loadScript novation\launchkey\session\track_loop_map_insert.ltgs
                     variable break 1
                 endIf
             endIf
         endFor
     endIf
-    # loadScript track_loop_print_state.ltgs
+    # loadScript novation\launchkey\session\track_loop_print_state.ltgs
 endFor
 
 

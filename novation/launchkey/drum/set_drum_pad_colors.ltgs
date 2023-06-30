@@ -10,7 +10,7 @@
 // [Snare]  [Click] [ ]     [ ]     [Hi-Hat (closed)]   [Hi-Hat (open)] [Ride]  [Ride]
 // [Kick]   [Tom]   [Tom]   [ ]     [Floor Tom]         [Crash]         [Crash] [Crash]
 
-loadScript constants.ltgs
+loadScript novation\launchkey\constants.ltgs
 
 variable pad0   $RED
 variable pad1   $PINK

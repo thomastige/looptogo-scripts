@@ -16,3 +16,12 @@ variable    YELLOW      13
 // ON/OFF
 variable    ON          127
 variable    OFF         0
+
+// Refers to the touchpad rows
+variable    ROW_LENGTH      8
+// Top Row: 96 - 103
+variable    TOP_ROW_0       95
+variable    TOP_ROW_8       103
+// Bottom Row: 112 - 119
+variable    BOTTOM_ROW_0    111
+variable    BOTTOM_ROW_8    119

@@ -1,0 +1,27 @@
+# Arguments coming from LoopToGo.
+# arg1: Message (likely always Command)
+# arg2: Status - 144 is Note ON, and 128 is Note OFF.
+# arg3: Channel (likely always going to be 1)
+# arg4: MIDI Note
+
+loadScript novation\launchkey\constants.ltgs
+# print "DEBUG - Session Button Handler - note: " & $arg4 & ". Status: " & $arg2
+if $arg2 = 144
+    if $arg4 > $TOP_ROW_0
+        if $arg4 < $TOP_ROW_8 + 1
+            // top row
+            loadScript novation\launchkey\session\button_handlers\select_track.ltgs
+        endIf
+                        
+        if $arg4 > $BOTTOM_ROW_0
+            if $arg4 < $BOTTOM_ROW_8 + 1
+                loadScript novation\launchkey\session\button_handlers\select_loop.ltgs
+            endIf
+        endIf
+    endIf
+endIf
+
+if $arg2 = 128
+    // button release, reset colors
+    loadScript novation\launchkey\session\session_display.ltgs
+endIf

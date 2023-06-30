@@ -1,0 +1,12 @@
+// Clears the loop map
+for trackIterator 1 $nbTracks
+    variable _trackName trackName & $trackIterator 
+    variable trackName $$_trackName
+    variable counter 1
+    variable _loop loop_ & $trackName & _ & $counter
+    while $$_loop > 0
+        variable $_loop 0
+        variable counter $counter + 1
+        variable _loop loop_ & $trackName & _ & $counter
+    endWhile
+endFor
