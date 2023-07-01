@@ -12,26 +12,25 @@
 
 loadScript novation\launchkey\constants.ltgs
 
-variable pad0   $RED
-variable pad1   $PINK
-variable pad2   $PINK
-variable pad3   $OFF
-variable pad4   $DARK_BLUE
-variable pad5   $BLUE
-variable pad6   $OFF
-variable pad7   $OFF
-variable pad8   $PINK
-variable pad9   $GREEN
-variable pad10  $GREEN
-variable pad11  $GREEN
-variable pad12  $YELLOW
-variable pad13  $YELLOW
-variable pad14  $ORANGE
-variable pad15  $ORANGE
+variable drumPad0   $RED
+variable drumPad1   $PINK
+variable drumPad2   $PINK
+variable drumPad3   $OFF
+variable drumPad4   $DARK_BLUE
+variable drumPad5   $BLUE
+variable drumPad6   $OFF
+variable drumPad7   $OFF
+variable drumPad8   $PINK
+variable drumPad9   $GREEN
+variable drumPad10  $GREEN
+variable drumPad11  $GREEN
+variable drumPad12  $YELLOW
+variable drumPad13  $YELLOW
+variable drumPad14  $ORANGE
+variable drumPad15  $ORANGE
 
 for iterator 0 15
     variable padIndex 36+$iterator
-    variable color pad & $iterator
-    print $padIndex & " is being set to " & $$color
+    variable color drumPad & $iterator
     sendMidiNoteOn "LKMK3_2_10" $padIndex $$color
 endFor

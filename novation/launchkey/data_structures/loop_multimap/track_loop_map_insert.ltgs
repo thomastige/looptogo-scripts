@@ -3,21 +3,21 @@
 
 # print "DEBUG - track_loop_map_insert - insertAt:" & $insertAt & ". baseInsertAt: " & $baseInsertAt 
 
-variable variableName loop_ & $loopTrack & _ & $insertAt
+variable variableName $multimap_prefix & $loopTrack & _ & $insertAt
 variable counter $insertAt
-variable newVariableName loop_ & $loopTrack & _ & $counter
+variable newVariableName $multimap_prefix & $loopTrack & _ & $counter
 
 while $$newVariableName 
     variable counter $counter + 1
-    variable newVariableName loop_ & $loopTrack & _ & $counter
+    variable newVariableName $multimap_prefix & $loopTrack & _ & $counter
 endWhile
 
 # print "DEBUG - map insert - found empty at index " & $counter
 
 while $counter > $insertAt 
-    variable newHighestVariableName loop_ & $loopTrack & _ & $counter
+    variable newHighestVariableName $multimap_prefix & $loopTrack & _ & $counter
     variable leftIndex $counter - 1
-    variable _leftLoop loop_ & $loopTrack & _ & $leftIndex
+    variable _leftLoop $multimap_prefix & $loopTrack & _ & $leftIndex
     # print "DEBUG - map - setting insertingLoop - new highest: " & $newHighestVariableName & " left loop: " & $_leftLoop
     variable $newHighestVariableName $$_leftLoop
     variable counter $counter - 1
@@ -25,4 +25,4 @@ endWhile
 
 variable $variableName $loopID
 
-# loadScript novation\launchkey\session\track_loop_print_state.ltgs
+# loadScript novation\launchkey\data_structures\loop_multimap\track_loop_print_state.ltgs

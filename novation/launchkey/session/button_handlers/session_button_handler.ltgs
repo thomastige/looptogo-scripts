@@ -5,6 +5,10 @@
 # arg4: MIDI Note
 
 loadScript novation\launchkey\constants.ltgs
+
+// Always build the multimaps
+loadScript novation\launchkey\data_structures\loop_multimap\track_loop_map.ltgs
+
 # print "DEBUG - Session Button Handler - note: " & $arg4 & ". Status: " & $arg2
 if $arg2 = 144
     if $arg4 > $TOP_ROW_0
@@ -23,5 +27,6 @@ endIf
 
 if $arg2 = 128
     // button release, reset colors
-    loadScript novation\launchkey\session\session_display.ltgs
 endIf
+
+loadScript novation\launchkey\session\draw.ltgs

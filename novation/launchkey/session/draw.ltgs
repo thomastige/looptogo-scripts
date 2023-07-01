@@ -25,9 +25,10 @@ endFor
 # Sort loops by start
 
 # build structure for the track and the ordered loops
-loadScript novation\launchkey\session\track_loop_map.ltgs
-# loadScript novation\launchkey\session\track_loop_print_state.ltgs
+# loadScript novation\launchkey\data_structures\loop_multimap\track_loop_map.ltgs
+# loadScript novation\launchkey\data_structures\loop_multimap\track_loop_print_state.ltgs
 
+loadScript novation\launchkey\data_structures\loop_multimap\get_cursor_location.ltgs
 
 variable _selectedTrackLoopCount trackCounter_ & $selectedTrack
 variable selectedTrackLoopCount $$_selectedTrackLoopCount
@@ -36,9 +37,26 @@ for trackPadIterator 1 $ROW_LENGTH
     variable padIndex $BOTTOM_ROW_0 + $trackPadIterator
     variable _loopID loop_ & $selectedTrack & _ & $trackPadIterator
     variable loopID $$_loopID
-    # print "loop ID variable: " & $_loopID
+
+    # print "DEBUG - Draw - previousCursorLoopIndex: " & $previousCursorLoopIndex & ". Cursor loop index: " & $cursorLoopIndex ". songBar: " & $songBar & ". iterator: " & $trackPadIterator
+
     if $loopID
-        sendMidiNoteOn "LKMK3_2_1" $padIndex $ORANGE
+        variable previousPlusOne $previousCursorLoopIndex + 1
+        variable previousMinusOne $previousCursorLoopIndex - 1
+
+        if $trackPadIterator > $previousMinusOne
+            // Loop has been passed
+            sendMidiNoteOn "LKMK3_2_1" $padIndex $RED
+        endIf
+        if $trackPadIterator < $previousPlusOne
+            // song bar is further up front 
+            sendMidiNoteOn "LKMK3_2_1" $padIndex $GREEN
+        endIf
+        if $trackPadIterator = $cursorLoopIndex
+            // Cursor is on the current loop
+            sendMidiNoteOn "LKMK3_2_1" $padIndex $ORANGE
+        endIf
+
     else
         sendMidiNoteOn "LKMK3_2_1" $padIndex 0
     endIf

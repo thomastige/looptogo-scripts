@@ -1,3 +1,5 @@
 loadScript novation\launchkey\constants.ltgs
 
 sendMidiNoteOn $MIDI_OUT_16 12 $OFF
+
+globalVariable DRAW_ENABLED 0

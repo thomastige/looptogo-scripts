@@ -1,0 +1,37 @@
+// Get the cursor location relative to the loops present on the currently selected track. The indexes provided are based on the loop_$trackName_$index multimap. This will set two variables: 
+// - cursorLoopIndex, which is set to 0 if there is no loop
+// - previousCursorLoopIndex, which is the index of the loop before the cursor. Set to 0 if there are none.
+
+// RETURN VALUES
+variable previousCursorLoopIndex 0
+variable cursorLoopIndex 0
+
+// TODO: remove this if it is set upstream, e.g. if this code is reused for markers
+variable multimap_prefix loop_
+
+// buffer the song bar's value in case it keeps moving as this script is run
+variable cursor $songBar
+variable counter 1
+variable _loopIndex $multimap_prefix & $selectedTrack & _ & $counter
+
+// One of the return values
+while $$_loopIndex
+    variable loopID $$_loopIndex
+    getLoopEnd loopEnd $loopID
+    getLoopStart loopStart $loopID
+    # print "DEBUG - get_cursor_location - Loop Start: " & $loopStart & ". Loop End: " & $loopEnd
+    
+    if $loopEnd - 0.01 < $cursor
+        variable previousCursorLoopIndex $counter
+    endIf
+    
+    if $loopStart - 0.01 < $cursor
+        if $loopEnd > $cursor
+            variable cursorLoopIndex $counter
+        endIf
+    endIf
+
+    # print "DEBUG - get_cursor_location - Loop Start: " & $loopStart & ". Loop End: " & $loopEnd & ". previousCursorLoopIndex: " & $previousCursorLoopIndex & ". cursorLoopIndex: "& $cursorLoopIndex
+    variable counter $counter + 1
+    variable _loopIndex $multimap_prefix & $selectedTrack & _ & $counter
+endWhile
