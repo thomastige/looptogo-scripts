@@ -56,13 +56,15 @@ for loopIndexForTrack 1 $nbLoops
                     # print "DEBUG - map - Insert at:" & $insertAt
                     loadScript novation\launchkey\data_structures\loop_multimap\track_loop_map_insert.ltgs
                     variable break 1
+                else 
+                    if $loopStart < $indexedStart
+                        # print "DEBUG - map - Loop Start is smaller than Indexed Start. Insert at:" & $insertAt
+                        # print "DEBUG - Inserting the loop in the map."
+                        loadScript novation\launchkey\data_structures\loop_multimap\track_loop_map_insert.ltgs
+                        variable break 1
+                    endIf
                 endIf
-                if $loopStart < $indexedStart
-                    # print "DEBUG - map - Loop Start is smaller than Indexed Start. Insert at:" & $insertAt
-                    # print "DEBUG - Inserting the loop in the map."
-                    loadScript novation\launchkey\data_structures\loop_multimap\track_loop_map_insert.ltgs
-                    variable break 1
-                endIf
+                
             endIf
         endFor
     endIf

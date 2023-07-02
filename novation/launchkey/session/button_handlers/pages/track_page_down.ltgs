@@ -1,0 +1,3 @@
+if $trackPage > 0
+    globalVariable trackPage $trackPage - 1 
+endIf

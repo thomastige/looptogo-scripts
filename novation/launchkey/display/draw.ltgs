@@ -58,12 +58,11 @@ while $DRAW_ENABLED = 1
         loadScript novation\launchkey\display\draw_stopped_state.ltgs
     endIf
 
-    
-    #if $draw
-        # print "DEBUG - draw loop - perform a draw for session mode"
-        loadScript novation\launchkey\session\draw.ltgs
-        variable draw 0
-    #endIf
+    loadScript novation\launchkey\session\draw.ltgs
+
+    if $DRAW_ONCE
+        globalVariable DRAW_ENABLED 0
+    endIf
 
     waitDelta .1 // Needed to make process non blocking
 endWhile

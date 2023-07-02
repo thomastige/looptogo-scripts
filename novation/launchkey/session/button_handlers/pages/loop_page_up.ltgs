@@ -1,0 +1,6 @@
+variable _trackPage trackPage_ & $selectedTrack
+
+if $$_trackPage > 0
+    // TODO: check if there's a loop on the next page
+    globalVariable $_trackPage $$_trackPage -1
+endIf

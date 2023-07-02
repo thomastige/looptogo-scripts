@@ -1,0 +1,5 @@
+variable _trackPage trackPage_ & $selectedTrack
+
+if $$_trackPage > 0
+    globalVariable $_trackPage $$_trackPage -1
+endIf
