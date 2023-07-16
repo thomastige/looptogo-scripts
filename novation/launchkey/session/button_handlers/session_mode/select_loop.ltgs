@@ -1,0 +1,28 @@
+loadScript novation\launchkey\data_structures\loop_multimap\get_cursor_location.ltgs
+variable padIndex $arg4 - $BOTTOM_ROW_0
+variable _loopPage trackLoopPage_ & $selectedTrack
+variable pageModifier $ROW_LENGTH  * $$_loopPage
+variable realLoopIndex $pageModifier + $padIndex
+
+// print "DEBUG - Select Loop - Page: " & $_loopPage & ". value: " & $$_loopPage & ". modifier: " & $pageModifier & ". real index: " & $realLoopIndex
+variable _selectedLoop "loop_" & $selectedTrack & _ & $realLoopIndex
+variable selectedLoop $$_selectedLoop
+# print $_selectedLoop
+getLoopStart loopStart $selectedLoop
+
+variable playingOrRecording 0
+if $isPlaying
+    variable playingOrRecording 1
+endIf
+
+if $isRecording
+    variable playingOrRecording 1
+endIf
+
+if $playingOrRecording
+    variable _loopID loop_ & $selectedTrack & _ & $cursorLoopIndex
+    getLoopEnd currentEnd $$_loopID
+    addTemporaryGoToMarker $currentEnd $loopStart
+else
+    setBar $loopStart
+endIf 

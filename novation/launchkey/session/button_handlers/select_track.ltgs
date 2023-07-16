@@ -1,4 +1,0 @@
-variable trackIndex $arg4 - $TOP_ROW_0
-variable _trackName trackName & $trackIndex
-variable trackName $$_trackName
-selectTrack $trackName

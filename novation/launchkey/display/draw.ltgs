@@ -1,68 +1,19 @@
-variable STATE_INIT -1
-variable STATE_STOPPED 0
-variable STATE_PLAYING 1
-variable STATE_RECORDING 2
-
-variable state $STATE_INIT
-
-// Only need to be drawn once, will not change.
+// Only needs to be drawn once, will not change.
 loadScript novation\launchkey\drum\draw.ltgs
-// Set this when a redraw is needed.
-variable draw 1
 
 while $DRAW_ENABLED = 1
-    // Update the loop multimap every tick
-    loadScript novation\launchkey\data_structures\loop_multimap\track_loop_map.ltgs
-
-    // Set the stateChange to 0. Based on the current value of $state, the branches will set stateChange before calling their respective draw script. Each state has two scripts: state and change_state. State is called at every tick, and change_state is only called when a state changes. Anything that can be resource-heavy should be done in the change_state script.
-    variable stateChange 0
-    if $isPlaying
-        if $playingState = 0
-            print "DEBUG - Draw - STATE CHANGING TO: PLAYING"
-            variable stateChange 1
-            loadScript novation\launchkey\display\draw_playing_change_state.ltgs
-        endIf
-        variable playingState 1
-        variable state $STATE_PLAYING
-        loadScript novation\launchkey\display\draw_playing_state.ltgs
-    else
-        variable playingState 0
+    if $SESSION_MODE = 1
+        loadScript novation\launchkey\display\session_mode\draw.ltgs
     endIf
 
-    if $isRecording
-        if $recordingState = 0
-            print "DEBUG - Draw - STATE CHANGING TO: RECORDING"
-            variable stateChange 1
-            loadScript novation\launchkey\display\draw_recording_change_state.ltgs
-        endIf
-        variable recordingState 10
-        variable state $STATE_RECORDING
-        loadScript novation\launchkey\display\draw_recording_state.ltgs
-    else
-        variable recordingState 0
+    if $SESSION_MODE = 2
+        loadScript novation\launchkey\display\navigation\draw.ltgs
     endIf
-
-    // states are base 10 so that AND checks can be done, in case multiple states can be used at the same time.
-    variable status $recordingState + $playingState
-    if $status = 0
-        // STOPPED, we are in editor mode
-        if $state = $STATE_STOPPED
-            // Previous state was already STOPPED
-        else
-            print "DEBUG - Draw - STATE CHANGING TO: STOPPED"
-            // Previous state
-            variable stateChange 1
-            loadScript novation\launchkey\display\draw_stopped_change_state.ltgs
-        endIf
-        variable state $STATE_STOPPED
-        loadScript novation\launchkey\display\draw_stopped_state.ltgs
-    endIf
-
-    loadScript novation\launchkey\session\draw.ltgs
 
     if $DRAW_ONCE
         globalVariable DRAW_ENABLED 0
+    else
+        waitDelta .1 // We are looping, so this is needed to make process non-blocking during playback/recording
     endIf
 
-    waitDelta .1 // Needed to make process non blocking
 endWhile

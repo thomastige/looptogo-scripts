@@ -1,0 +1,2 @@
+// For now, playing will be the same as recording
+loadScript novation\launchkey\display\session_mode\draw_recording_change_state.ltgs

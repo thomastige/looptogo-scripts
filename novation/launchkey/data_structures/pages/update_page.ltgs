@@ -1,0 +1,23 @@
+// Prerequisites: the track loop map must have been created and get_cursor_location must have been called.
+// Update the page based on the cursor
+
+if $cursorLoopIndex > 0
+    variable currentIndex $cursorLoopIndex
+else
+    variable currentIndex $previousCursorLoopIndex
+endIf
+
+variable page 0
+variable currentHighestLoop $page * $ROW_LENGTH + $ROW_LENGTH
+variable nextPageFirstLoopID $currentHighestLoop + 1
+
+while $currentIndex > $nextPageFirstLoopID
+    variable page $page + 1
+    variable currentHighestLoop $page * $ROW_LENGTH
+    variable currentHighestLoop $currentHighestLoop + $ROW_LENGTH
+    variable nextPageFirstLoopID $currentHighestLoop + 1
+endWhile 
+
+print $page
+globalVariable $_loopPage $page
+

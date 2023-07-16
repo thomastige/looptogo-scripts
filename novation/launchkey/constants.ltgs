@@ -5,12 +5,14 @@ variable    MIDI_OUT_16 "LKMK3_2_16"
 
 // Colors
 variable    RED         5
+variable    DARK_RED    7
 variable    BLUE        37
 variable    DARK_BLUE   41
 variable    PURPLE      44
 variable    PINK        53
 variable    ORANGE      9
 variable    GREEN       21
+variable    DARK_GREEN  27
 variable    YELLOW      13
 
 // ON/OFF
@@ -25,3 +27,8 @@ variable    TOP_ROW_8       103
 // Bottom Row: 112 - 119
 variable    BOTTOM_ROW_0    111
 variable    BOTTOM_ROW_8    119
+
+
+// Loop Types
+variable LOOP_TYPE_PLAY     "Play"
+variable LOOP_TYPE_RECORD   "Record"

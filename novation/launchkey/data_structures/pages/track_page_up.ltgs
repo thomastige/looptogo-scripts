@@ -1,0 +1,8 @@
+// TODO: check if there's a track on the next page
+variable currentHighestTrack $trackPage * $ROW_LENGTH + $ROW_LENGTH
+
+if $currentHighestTrack < $nbTracks
+    globalVariable trackPage $trackPage + 1 
+endIf
+
+# print "DEBUG - Track Page Up - highest track: " & $currentHighestTrack & ". New page: " & $trackPage

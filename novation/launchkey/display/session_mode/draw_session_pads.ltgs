@@ -2,11 +2,11 @@ loadScript novation\launchkey\constants.ltgs
 
 ### Top Row
 # Set pads to blue for each track, except green if selected
-for iterator 1 $nbTracks
+for iterator 1 $ROW_LENGTH
     
     if $trackPage > 0
         variable trackPageModifier $trackPage * $ROW_LENGTH
-        variable trackIndex $trackPage * $trackPageModifier + $iterator
+        variable trackIndex $trackPageModifier + $iterator
     else
         variable trackIndex $iterator
     endIf
@@ -15,18 +15,20 @@ for iterator 1 $nbTracks
     variable trackNameIndex $$_trackNameIndex
     
     # print "DEBUG - Session Display - selected Track: " & $selectedTrack & ". trackName: " & $trackNameIndex
-    if $trackNameIndex = $selectedTrack
-        sendMidiNoteOn "LKMK3_2_1" $padIndex $GREEN
+    if $trackNameIndex
+        if $trackNameIndex = $selectedTrack
+            sendMidiNoteOn "LKMK3_2_1" $padIndex $GREEN
+        else
+            sendMidiNoteOn "LKMK3_2_1" $padIndex $BLUE
+        endIf
     else
-        sendMidiNoteOn "LKMK3_2_1" $padIndex $BLUE
+        // No track
+        // Turn off the pad if there is no associated track
+        sendMidiNoteOn "LKMK3_2_1" $padIndex 0
     endIf
 endFor
 
-# Turn off remaining pads
-for i $iterator $ROW_LENGTH
-    variable padIndex $TOP_ROW_0 + $i
-    sendMidiNoteOn "LKMK3_2_1" $padIndex 0
-endFor
+# print "DEBUG - Session Draw - Iterator value after drawing: " & $iterator
 
 ### Bottom Row
 # Set Colors - orange for record track, green for play
@@ -42,6 +44,8 @@ loadScript novation\launchkey\data_structures\loop_multimap\get_cursor_location.
 variable _selectedTrackLoopCount trackCounter_ & $selectedTrack
 variable selectedTrackLoopCount $$_selectedTrackLoopCount
 
+# loadScript novation\launchkey\data_structures\pages\update_page.ltgs
+
 for trackPadIterator 1 $ROW_LENGTH
     variable _trackLoopPage trackLoopPage_ & $selectedTrack
     variable trackLoopPage $$_trackLoopPage
@@ -54,25 +58,39 @@ for trackPadIterator 1 $ROW_LENGTH
 
     # print "track loop index: " & $trackLoopIndex & ". page: " & $trackLoopPage & ". Iterator: " & $trackPadIterator
     variable padIndex $BOTTOM_ROW_0 + $trackPadIterator
-    variable _loopID loop_ & $selectedTrack & _ & $trackPadIterator
+    variable _loopID loop_ & $selectedTrack & _ & $trackLoopIndex
     variable loopID $$_loopID
 
-    // print "DEBUG - Session Draw - Iterator: " & $trackPadIterator & ".Loop ID: " & $loopID
+    # print "DEBUG - Session Draw - Iterator: " & $trackPadIterator & ".Loop ID: " & $loopID
     if $loopID
         variable previousPlusOne $previousCursorLoopIndex + 1
         variable previousMinusOne $previousCursorLoopIndex - 1
+        
+        getLoopType loopType $loopID
 
-        if $trackPadIterator > $previousMinusOne
-            // Loop has been passed
-            sendMidiNoteOn "LKMK3_2_1" $padIndex $RED
+        if $trackLoopIndex > $previousMinusOne
+            // Song bar has not passed the loop yet
+            if $loopType = $LOOP_TYPE_PLAY
+                sendMidiNoteOn "LKMK3_2_1" $padIndex $GREEN
+            else
+                // If not play, then record
+                sendMidiNoteOn "LKMK3_2_1" $padIndex $RED
+            endIf
+            
         endIf
-        if $trackPadIterator < $previousPlusOne
-            // song bar is further up front 
-            sendMidiNoteOn "LKMK3_2_1" $padIndex $GREEN
+        if $trackLoopIndex < $previousPlusOne
+            // Loop has been passed by the song bar 
+            if $loopType = $LOOP_TYPE_PLAY
+                sendMidiNoteOn "LKMK3_2_1" $padIndex $DARK_GREEN
+            else
+                // If not play, then record
+                sendMidiNoteOn "LKMK3_2_1" $padIndex $DARK_RED
+            endIf
         endIf
-        if $trackPadIterator = $cursorLoopIndex
+
+        if $trackLoopIndex = $cursorLoopIndex
             // Cursor is on the current loop
-            sendMidiNoteOn "LKMK3_2_1" $padIndex $ORANGE
+            sendMidiNoteOn "LKMK3_2_3" $padIndex $ORANGE
         endIf
 
     else

@@ -1,2 +1,0 @@
-// TODO: check if there's a track on the next page
-globalVariable trackPage $trackPage + 1 

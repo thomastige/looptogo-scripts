@@ -1,0 +1,3 @@
+if $SESSION_MODE > 1
+    globalVariable SESSION_MODE $SESSION_MODE - 1
+endIf

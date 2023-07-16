@@ -1,0 +1,106 @@
+// Hardcoding the whole thing because it's easier for now, just 16 cases to handle
+
+variable STATUS_PRESS   144
+variable STATUS_DEPRESS 128
+
+if $arg2 = $STATUS_PRESS
+
+    // Granular
+    if $arg4 = 96 
+        variable newBarValue $songBar - 1
+        if $newBarValue < 1
+            variable newBarValue 1
+        endIf
+        setBar $newBarValue 
+    endIf
+
+    if $arg4 = 97 
+        variable newBarValue $songBar - 0.75
+        if $newBarValue < 1
+            variable newBarValue 1
+        endIf
+        setBar $newBarValue 
+    endIf
+
+    if $arg4 = 98 
+        variable newBarValue $songBar - 0.5
+        if $newBarValue < 1
+            variable newBarValue 1
+        endIf
+        setBar $newBarValue 
+    endIf
+
+    if $arg4 = 99 
+        variable newBarValue $songBar - 0.25
+        if $newBarValue < 1
+            variable newBarValue 1
+        endIf
+        setBar $newBarValue 
+    endIf
+
+    if $arg4 = 100
+        setBar $songBar + 0.25
+    endIf
+
+    if $arg4 = 101
+        setBar $songBar + 0.5
+    endIf
+
+    if $arg4 = 102
+        setBar $songBar + 0.75
+    endIf
+
+    if $arg4 = 103
+        setBar $songBar + 1
+    endIf
+
+    // Bars
+    if $arg4 = 112
+        variable newBarValue $songBar - 4
+        if $newBarValue < 1
+            variable newBarValue 1
+        endIf
+        setBar $newBarValue 
+    endIf
+
+    if $arg4 = 113
+        variable newBarValue $songBar - 3
+        if $newBarValue < 1
+            variable newBarValue 1
+        endIf
+        setBar $newBarValue 
+    endIf
+
+    if $arg4 = 114
+        variable newBarValue $songBar - 2
+        if $newBarValue < 1
+            variable newBarValue 1
+        endIf
+        setBar $newBarValue 
+    endIf
+
+    if $arg4 = 115
+        variable newBarValue $songBar - 1
+        if $newBarValue < 1
+            variable newBarValue 1
+        endIf
+        setBar $newBarValue 
+    endIf
+
+    if $arg4 = 116
+        setBar $songBar + 1
+    endIf
+
+    if $arg4 = 117
+        setBar $songBar + 2
+    endIf
+
+    if $arg4 = 118
+        setBar $songBar + 3
+    endIf
+
+    if $arg4 = 119
+        setBar $songBar + 4
+    endIf
+
+endIf

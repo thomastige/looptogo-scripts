@@ -1,6 +1,0 @@
-variable padIndex $arg4 - $BOTTOM_ROW_0
-variable _selectedLoop "loop_" & $selectedTrack & _ & $padIndex
-variable selectedLoop $$_selectedLoop
-
-getLoopStart loopStart $selectedLoop
-setBar $loopStart

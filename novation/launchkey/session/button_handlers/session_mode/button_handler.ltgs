@@ -1,0 +1,88 @@
+# Arguments coming from LoopToGo.
+# arg1: Message (likely always Command)
+# arg2: Status - 144 is Note ON, and 128 is Note OFF.
+# arg3: Channel (likely always going to be 1)
+# arg4: MIDI Note
+
+loadScript novation\launchkey\session\constants.ltgs
+
+variable TRACK_RIGHT 102
+variable TRACK_LEFT 103
+variable HIGHER_THAN 104
+variable STOP_SOLO_MUTE 105
+variable UP_ARROW 106
+variable DOWN_ARROW 107
+
+variable STATUS_PRESS   144
+variable STATUS_DEPRESS 128
+
+// Handling pad press
+if $arg2 = $STATUS_PRESS
+    if $arg4 > $TOP_ROW_0
+        if $arg4 < $TOP_ROW_8 + 1
+            // top row
+            loadScript novation\launchkey\session\button_handlers\session_mode\select_track.ltgs
+        endIf
+                        
+        if $arg4 > $BOTTOM_ROW_0
+            if $arg4 < $BOTTOM_ROW_8 + 1
+                loadScript novation\launchkey\session\button_handlers\session_mode\select_loop.ltgs
+            endIf
+        endIf
+    endIf
+endIf
+
+// Handling pad depress
+if $arg2 = $STATUS_DEPRESS
+    // button release, reset colors
+endIf
+
+// Handling Pad modifiers
+if $arg4 = $HIGHER_THAN
+    if $arg3 = 1
+        if $toggleUpRowModifier = 1
+            globalVariable toggleUpRowModifier 0
+        else
+            globalVariable toggleUpRowModifier 1
+        endIf
+    endIf
+endIf
+
+if $arg4 = $STOP_SOLO_MUTE
+    if $arg3 = 1
+        if $toggleBottomRowModifier = 1
+            globalVariable toggleBottomRowModifier 0
+        else
+            globalVariable toggleBottomRowModifier 1
+        endIf
+    endIf
+endIf
+
+// Track left/right - page up or down
+if $arg4 = $TRACK_RIGHT
+    if $arg3 = 16
+        if $toggleUpRowModifier = 1
+            # print "DEBUG - Session Button Handler - Track Page Up"
+            loadScript novation\launchkey\data_structures\pages\track_page_up.ltgs
+        endIf
+        if $toggleBottomRowModifier = 1
+            # print "DEBUG - Session Button Handler - Loop Page Up"
+            loadScript novation\launchkey\data_structures\pages\loop_page_up.ltgs
+        endIf
+    endIf
+endIf
+
+if $arg4 = $TRACK_LEFT
+    if $arg3 = 16
+        if $toggleUpRowModifier = 1
+            # print "DEBUG - Session Button Handler - Track Page Down"
+            loadScript novation\launchkey\data_structures\pages\track_page_down.ltgs
+        endIf
+        if $toggleBottomRowModifier = 1
+            # print "DEBUG - Session Button Handler - Loop Page Down"
+            loadScript novation\launchkey\data_structures\pages\loop_page_down.ltgs
+        endIf
+    endIf
+endIf
+
+

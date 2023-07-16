@@ -1,0 +1,24 @@
+variable    TOP_ROW_0       95
+variable    TOP_ROW_8       103
+// Bottom Row: 112 - 119
+variable    BOTTOM_ROW_0    111
+variable    BOTTOM_ROW_8    119
+
+sendMidiNoteOn "LKMK3_2_1" 96 $ORANGE
+sendMidiNoteOn "LKMK3_2_1" 97 $YELLOW
+sendMidiNoteOn "LKMK3_2_1" 98 $YELLOW
+sendMidiNoteOn "LKMK3_2_1" 99 $ORANGE
+sendMidiNoteOn "LKMK3_2_1" 100 $ORANGE
+sendMidiNoteOn "LKMK3_2_1" 101 $YELLOW
+sendMidiNoteOn "LKMK3_2_1" 102 $YELLOW
+sendMidiNoteOn "LKMK3_2_1" 103 $ORANGE
+
+sendMidiNoteOn "LKMK3_2_1" 112 $ORANGE
+sendMidiNoteOn "LKMK3_2_1" 113 $YELLOW
+sendMidiNoteOn "LKMK3_2_1" 114 $YELLOW
+sendMidiNoteOn "LKMK3_2_1" 115 $ORANGE
+sendMidiNoteOn "LKMK3_2_1" 116 $ORANGE
+sendMidiNoteOn "LKMK3_2_1" 117 $YELLOW
+sendMidiNoteOn "LKMK3_2_1" 118 $YELLOW
+sendMidiNoteOn "LKMK3_2_1" 119 $ORANGE
+

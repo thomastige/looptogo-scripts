@@ -1,0 +1,10 @@
+variable _loopPage trackLoopPage_ & $selectedTrack
+
+variable currentHighestLoop $$_loopPage * $ROW_LENGTH + $ROW_LENGTH
+variable nextPageFirstLoopID $currentHighestLoop + 1
+
+variable _trackLoop loop_ & $selectedTrack & _ & $nextPageFirstLoopID
+if $$_trackLoop
+    globalVariable $_loopPage $$_loopPage + 1
+endIf
+# print "new loop page: " & $_loopPage & ". Value: " & $$_loopPage & ". current highest: " & $currentHighestLoop & ". next page first: " & $nextPageFirstLoopID

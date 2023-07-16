@@ -1,3 +1,5 @@
 if $trackPage > 0
     globalVariable trackPage $trackPage - 1 
 endIf
+
+# print "DEBUG - Page Down - track page: " & $trackPage

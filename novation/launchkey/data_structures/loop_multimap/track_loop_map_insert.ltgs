@@ -12,7 +12,7 @@ while $$newVariableName > 0
     variable newVariableName $multimap_prefix & $loopTrack & _ & $counter
 endWhile
 
-print "DEBUG - map insert - found empty at index " & $counter
+# print "DEBUG - map insert - found empty at index " & $counter
 
 while $counter > $insertAt 
     variable leftIndex $counter - 1
@@ -26,4 +26,4 @@ endWhile
 
 globalVariable $variableName $loopID
 
-loadScript novation\launchkey\data_structures\loop_multimap\track_loop_print_state.ltgs
+# loadScript novation\launchkey\data_structures\loop_multimap\track_loop_print_state.ltgs

@@ -1,0 +1,6 @@
+variable trackIndex $arg4 - $TOP_ROW_0
+variable pageModifier $trackPage * $ROW_LENGTH
+variable realTrackIndex $pageModifier + $trackIndex
+variable _trackName trackName & $realTrackIndex
+variable trackName $$_trackName
+selectTrack $trackName

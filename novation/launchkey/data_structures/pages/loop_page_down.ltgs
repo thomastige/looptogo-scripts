@@ -1,0 +1,7 @@
+variable _loopPage trackLoopPage_ & $selectedTrack
+
+if $$_loopPage > 0
+    globalVariable $_loopPage $$_loopPage -1
+endIf
+
+# print "loop page: " & $_loopPage & ". Value: " & $$_loopPage

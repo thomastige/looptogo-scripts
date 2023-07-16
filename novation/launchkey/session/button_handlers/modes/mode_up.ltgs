@@ -1,0 +1,5 @@
+variable newModeValue $SESSION_MODE + 1
+variable _newMode SESSION_MODE_ & $newModeValue
+if $$_newMode
+    globalVariable SESSION_MODE $newModeValue
+endIf
