@@ -5,4 +5,4 @@ if $currentHighestTrack < $nbTracks
     globalVariable trackPage $trackPage + 1 
 endIf
 
-# print "DEBUG - Track Page Up - highest track: " & $currentHighestTrack & ". New page: " & $trackPage
+print "DEBUG - Track Page Up - highest track: " & $currentHighestTrack & ". New page: " & $trackPage

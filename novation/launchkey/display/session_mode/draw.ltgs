@@ -36,8 +36,6 @@ endIf
 // states are base 10 so that AND checks can be done, in case multiple states can be used at the same time.
 variable status $recordingState + $playingState
 if $status = 0
-    // Update the loop multimap every tick when stopped
-    loadScript novation\launchkey\data_structures\loop_multimap\track_loop_map.ltgs
 
     // STOPPED, we are in editor mode
     if $state = $STATE_STOPPED

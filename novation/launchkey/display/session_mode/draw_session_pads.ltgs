@@ -32,18 +32,13 @@ endFor
 
 ### Bottom Row
 # Set Colors - orange for record track, green for play
-# Sort loops by start
-
-# build structure for the track and the ordered loops
-# loadScript novation\launchkey\data_structures\loop_multimap\track_loop_map.ltgs
-# loadScript novation\launchkey\data_structures\loop_multimap\track_loop_print_state.ltgs
-
 loadScript novation\launchkey\data_structures\loop_multimap\get_cursor_location.ltgs
+
 # print "DEBUG - Session Draw - previousCursorLoopIndex: " & $previousCursorLoopIndex & ". Cursor loop index: " & $cursorLoopIndex ". songBar: " & $songBar
 
-variable _selectedTrackLoopCount trackCounter_ & $selectedTrack
-variable selectedTrackLoopCount $$_selectedTrackLoopCount
+getNbLoopsForTrack selectedTrackLoopCount $selectedTrack
 
+# If this is run, then the page will be updated no matter what. This means pages cannot be turned anymore.
 # loadScript novation\launchkey\data_structures\pages\update_page.ltgs
 
 for trackPadIterator 1 $ROW_LENGTH
@@ -58,11 +53,14 @@ for trackPadIterator 1 $ROW_LENGTH
 
     # print "track loop index: " & $trackLoopIndex & ". page: " & $trackLoopPage & ". Iterator: " & $trackPadIterator
     variable padIndex $BOTTOM_ROW_0 + $trackPadIterator
-    variable _loopID loop_ & $selectedTrack & _ & $trackLoopIndex
-    variable loopID $$_loopID
+
+    getLoopIDForTrack loopID $selectedTrack $trackLoopIndex
 
     # print "DEBUG - Session Draw - Iterator: " & $trackPadIterator & ".Loop ID: " & $loopID
-    if $loopID
+    
+    if $trackLoopIndex > $selectedTrackLoopCount
+        sendMidiNoteOn "LKMK3_2_1" $padIndex 0
+    else
         variable previousPlusOne $previousCursorLoopIndex + 1
         variable previousMinusOne $previousCursorLoopIndex - 1
         
@@ -92,8 +90,5 @@ for trackPadIterator 1 $ROW_LENGTH
             // Cursor is on the current loop
             sendMidiNoteOn "LKMK3_2_3" $padIndex $ORANGE
         endIf
-
-    else
-        sendMidiNoteOn "LKMK3_2_1" $padIndex 0
     endIf
 endFor

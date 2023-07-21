@@ -1,9 +1,0 @@
-
-// create generic multimap with all tracks and all loops
-variable multimap_prefix loop_
-
-loadScript novation\launchkey\data_structures\loop_multimap\track_loop_map_builder.ltgs
-
-// TODO: Create multimap with only record loops
-
-// TODO: create multimap with markers instead of loops

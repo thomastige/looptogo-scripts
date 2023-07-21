@@ -32,3 +32,6 @@ variable    BOTTOM_ROW_8    119
 // Loop Types
 variable LOOP_TYPE_PLAY     "Play"
 variable LOOP_TYPE_RECORD   "Record"
+
+# Load helper aliases as constants
+loadScript novation\launchkey\helpers\helper_aliases.ltgs

@@ -1,0 +1,14 @@
+variable _trackLoopPage trackLoopPage_ & $selectedTrack
+variable trackLoopPage $$_trackLoopPage
+
+# These variables are outputted by this script
+variable LOOP_PAGE_ZERO 0
+variable LOOP_PAGE_TOP $LOOP_PAGE_ZERO + $ROW_LENGTH - 1
+
+if $trackLoopPage > 0
+    variable trackLoopPageModifier $trackLoopPage * $ROW_LENGTH
+    variable LOOP_PAGE_ZERO $trackLoopPage * $trackLoopPageModifier + $LOOP_PAGE_ZERO
+    variable LOOP_PAGE_TOP $trackLoopPage * $trackLoopPageModifier + $LOOP_PAGE_TOP
+endIf
+
+

@@ -7,17 +7,17 @@ else
     variable currentIndex $previousCursorLoopIndex
 endIf
 
-variable page 0
-variable currentHighestLoop $page * $ROW_LENGTH + $ROW_LENGTH
-variable nextPageFirstLoopID $currentHighestLoop + 1
+variable _trackLoopPage trackLoopPage_ & $selectedTrack
+variable trackLoopPage $$_trackLoopPage
 
-while $currentIndex > $nextPageFirstLoopID
-    variable page $page + 1
-    variable currentHighestLoop $page * $ROW_LENGTH
-    variable currentHighestLoop $currentHighestLoop + $ROW_LENGTH
-    variable nextPageFirstLoopID $currentHighestLoop + 1
+globalVariable $_loopPage 0
+
+currentLoopPageBounds
+
+while $currentIndex > $LOOP_PAGE_TOP
+    globalVariable $_loopPage $$_loopPage + 1
+    currentLoopPageBounds
 endWhile 
 
-print $page
-globalVariable $_loopPage $page
+globalVariable $_loopPage $$_loopPage
 

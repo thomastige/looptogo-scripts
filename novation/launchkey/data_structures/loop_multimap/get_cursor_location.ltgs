@@ -8,17 +8,15 @@ variable previousCursorLoopIndex    0
 variable cursorLoopIndex            0
 variable nextCursorLoopIndex        0
 
-// TODO: remove this if it is set upstream, e.g. if this code is reused for markers
-variable multimap_prefix loop_
-
 // buffer the song bar's value in case it keeps moving as this script is run
 variable cursor $songBar
 variable counter 1
-variable _loopIndex $multimap_prefix & $selectedTrack & _ & $counter
+
+getNbLoopsForTrack loopsForTrack $selectedTrack
 
 // One of the return values
-while $$_loopIndex
-    variable loopID $$_loopIndex
+while $counter < $loopsForTrack
+    getLoopIDForTrack loopID $selectedTrack $counter
     getLoopEnd loopEnd $loopID
     getLoopStart loopStart $loopID
     # print "DEBUG - get_cursor_location - Loop Start: " & $loopStart & ". Loop End: " & $loopEnd
@@ -35,7 +33,6 @@ while $$_loopIndex
 
     # print "DEBUG - get_cursor_location - Loop Start: " & $loopStart & ". Loop End: " & $loopEnd & ". previousCursorLoopIndex: " & $previousCursorLoopIndex & ". cursorLoopIndex: "& $cursorLoopIndex
     variable counter $counter + 1
-    variable _loopIndex $multimap_prefix & $selectedTrack & _ & $counter
 endWhile
 
 if $cursorLoopIndex > 0
@@ -43,8 +40,7 @@ if $cursorLoopIndex > 0
 else
     variable nextIndex $previousCursorLoopIndex + 1
 endIf
-
-variable _loopIndex $multimap_prefix & $selectedTrack & _ & $nextIndex
-if $$_loopIndex
+getLoopIDForTrack loopIndex $selectedTrack $nextIndex
+if $loopIndex
     variable nextCursorLoopIndex $nextIndex
 endIf

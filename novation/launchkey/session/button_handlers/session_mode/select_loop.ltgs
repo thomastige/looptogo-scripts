@@ -5,8 +5,7 @@ variable pageModifier $ROW_LENGTH  * $$_loopPage
 variable realLoopIndex $pageModifier + $padIndex
 
 // print "DEBUG - Select Loop - Page: " & $_loopPage & ". value: " & $$_loopPage & ". modifier: " & $pageModifier & ". real index: " & $realLoopIndex
-variable _selectedLoop "loop_" & $selectedTrack & _ & $realLoopIndex
-variable selectedLoop $$_selectedLoop
+getLoopIDForTrack selectedLoop $selectedTrack $realLoopIndex
 # print $_selectedLoop
 getLoopStart loopStart $selectedLoop
 
@@ -20,9 +19,10 @@ if $isRecording
 endIf
 
 if $playingOrRecording
-    variable _loopID loop_ & $selectedTrack & _ & $cursorLoopIndex
-    getLoopEnd currentEnd $$_loopID
-    addTemporaryGoToMarker $currentEnd $loopStart
+    getLoopIDForTrack loopID $selectedTrack $cursorLoopIndex
+
+    getLoopEnd currentEnd $loopID
+    addTemporaryGoToMarker $currentEnd $loopStart 1
 else
     setBar $loopStart
 endIf 
