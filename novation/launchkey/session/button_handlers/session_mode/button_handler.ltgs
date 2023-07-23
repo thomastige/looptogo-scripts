@@ -6,16 +6,6 @@
 
 loadScript novation\launchkey\session\constants.ltgs
 
-variable TRACK_RIGHT 102
-variable TRACK_LEFT 103
-variable HIGHER_THAN 104
-variable STOP_SOLO_MUTE 105
-variable UP_ARROW 106
-variable DOWN_ARROW 107
-
-variable STATUS_PRESS   144
-variable STATUS_DEPRESS 128
-
 // Handling pad press
 if $arg2 = $STATUS_PRESS
     if $arg4 > $TOP_ROW_0

@@ -15,7 +15,7 @@ variable counter 1
 getNbLoopsForTrack loopsForTrack $selectedTrack
 
 // One of the return values
-while $counter < $loopsForTrack
+while $counter < $loopsForTrack+1
     getLoopIDForTrack loopID $selectedTrack $counter
     getLoopEnd loopEnd $loopID
     getLoopStart loopStart $loopID

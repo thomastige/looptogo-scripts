@@ -1,8 +1,5 @@
 loadScript novation\launchkey\constants.ltgs
 
-variable UP_ARROW 106
-variable DOWN_ARROW 107
-
 # print "DEBUG - Session Button Handler - note: " & $arg4 & ". Status: " & $arg2 & ". Channel: " & $arg3
 
 if $arg4 = $UP_ARROW

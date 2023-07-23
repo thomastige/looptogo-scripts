@@ -19,7 +19,8 @@ variable    YELLOW      13
 variable    ON          127
 variable    OFF         0
 
-// Refers to the touchpad rows
+// The two Pad rows
+// Pad messages are sent on channel 1 by input 2
 variable    ROW_LENGTH      8
 // Top Row: 96 - 103
 variable    TOP_ROW_0       95
@@ -28,10 +29,55 @@ variable    TOP_ROW_8       103
 variable    BOTTOM_ROW_0    111
 variable    BOTTOM_ROW_8    119
 
+// Control Panel Buttons
+// These button press events are sent by MIDI2 on channel 16
+variable    PLAY            115
+variable    STOP            116
+variable    RECORD          117
+variable    repeat          118
+variable    CAPTURE_MIDI    74
+variable    QUANTISE        75
+variable    CLICK           76
+variable    UNDO            77
 
+// Buttons around the pads
+variable    TRACK_RIGHT     102
+variable    TRACK_LEFT      103
+variable    HIGHER_THAN     104
+variable    STOP_SOLO_MUTE  105
+variable    UP_ARROW        106
+variable    DOWN_ARROW      107
+
+// Button events - some buttons send these as status values to indicate whether they are pressed or not.
+// Other buttons provide the value as velocity.
+variable    STATUS_PRESS    144
+variable    STATUS_DEPRESS  128
+
+// Other Buttons
+variable DEVICE_SELECT      51
+variable DEVICE_LOCK        52
+
+// When DEVICE_SELECT is pressed, the pads send new values.
+// Row 1 starts at 64 and Row 2 starts at 80.
+// Top Row: 64-71
+variable    DEVICE_SELECT_TOP_ROW_1       64
+variable    DEVICE_SELECT_TOP_ROW_8       71
+// Bottom Row: 80-87
+variable    DEVICE_SELECT_BOTTOM_ROW_1    80
+variable    DEVICE_SELECT_BOTTOM_ROW_8    87
 // Loop Types
 variable LOOP_TYPE_PLAY     "Play"
 variable LOOP_TYPE_RECORD   "Record"
+
+// Encoders - MIDI2 on channel 16
+variable    ENCODER_1   21
+variable    ENCODER_2   22
+variable    ENCODER_3   23
+variable    ENCODER_4   24
+variable    ENCODER_5   25
+variable    ENCODER_6   26
+variable    ENCODER_7   27
+variable    ENCODER_8   28
 
 # Load helper aliases as constants
 loadScript novation\launchkey\helpers\helper_aliases.ltgs

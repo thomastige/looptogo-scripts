@@ -1,0 +1,4 @@
+// LOOP_CC: value 80 for loop 1, value 81 for loop 2
+// CC_VALUE: 0 for off, 127 for on
+
+sendMidiCC  "MIDI (OCTA-CAPTURE)" $LOOP_CC $CC_VALUE
