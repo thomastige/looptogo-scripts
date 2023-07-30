@@ -1,7 +1,20 @@
 // Only needs to be drawn once, will not change.
 loadScript novation\launchkey\drum\draw.ltgs
+loadScript novation\launchkey\helpers\get_highest_marker.ltgs
+loadScript novation\launchkey\display\lcd\write_to_display.ltgs
 
 while $DRAW_ENABLED = 1
+
+    callFunction getHighestMarker newMarker
+    // Avoid sending too many messages to the LCD, a lot of messages are already being sent to the keyboard.
+    if $newMarker = $marker
+        // do nothing, didn't change. If this hasn't run before, then $marker is set to 0.
+    else
+        variable marker $newMarker
+        getMarkerName markerName $marker
+        callFunction writeToDisplay $markerName 0
+    endIf
+
     if $SESSION_MODE = 1
         loadScript novation\launchkey\display\session_mode\draw.ltgs
     endIf

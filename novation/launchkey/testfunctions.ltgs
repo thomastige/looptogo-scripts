@@ -1,0 +1,3 @@
+loadScript novation\launchkey\helpers\get_highest_marker.ltgs
+callFunction getHighestMarker marker
+print "Highest marker: " & $marker

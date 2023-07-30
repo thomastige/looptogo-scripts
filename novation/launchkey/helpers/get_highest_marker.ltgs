@@ -1,0 +1,21 @@
+// Gets the current marker, based on where the song bar is.
+// arg1: variable output, value is 0 if none was found.
+function getHighestMarker
+    variable currentHighestMarker 0
+    for i 1 $nbMarkers
+        variable _marker "markerID" & $i
+        getMarkerBar markerBar $$_marker
+        if $markerBar < $songBar + 0.1
+            if $currentHighestMarker = 0
+                variable currentHighestMarker $$_marker
+            else
+                getMarkerBar highestBar $currentHighestMarker
+                if $markerBar > $highestBar
+                    variable currentHighestMarker $$_marker
+                endIf
+            endIf
+            # print "iterator: " & $i & ". Marker bar: " & $markerBar & ". highest bar:" & $highestBar
+        endIf
+    endFor
+    parentVariable $arg1 $currentHighestMarker
+endFunction

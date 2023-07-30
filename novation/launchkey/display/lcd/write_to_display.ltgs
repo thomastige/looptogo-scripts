@@ -1,0 +1,21 @@
+// Write message to the Launchkey display.
+// $arg1: the message that will be written on the display.
+// $arg2: the row on which the message will be displayed, defaulting to the top row.
+function writeToDisplay 
+    variable    device  "LKMK3_2"
+
+    print $arg1
+    convertStringToHex hexMessage $arg1
+
+    print $hexMessage
+    // The prefix and message end are constants, defined by Novation
+    variable prefix        "F0 00 20 29 02 0F 04"
+    variable messageEnd    F7
+    // There are two rows on the LCD
+    variable row 	       $arg2
+
+    variable message $prefix & " " & $row & " " & $hexMessage & " " & $messageEnd
+    print $message
+
+    sendMidiRawBytes    $device    $message
+endFunction
