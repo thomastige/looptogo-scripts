@@ -4,10 +4,8 @@
 function writeToDisplay 
     variable    device  "LKMK3_2"
 
-    print $arg1
     convertStringToHex hexMessage $arg1
 
-    print $hexMessage
     // The prefix and message end are constants, defined by Novation
     variable prefix        "F0 00 20 29 02 0F 04"
     variable messageEnd    F7
@@ -15,7 +13,6 @@ function writeToDisplay
     variable row 	       $arg2
 
     variable message $prefix & " " & $row & " " & $hexMessage & " " & $messageEnd
-    print $message
 
     sendMidiRawBytes    $device    $message
 endFunction

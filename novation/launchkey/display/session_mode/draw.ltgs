@@ -1,9 +1,4 @@
-variable STATE_INIT -1
-variable STATE_STOPPED 0
-variable STATE_PLAYING 1
-variable STATE_RECORDING 2
-
-variable state $STATE_INIT
+globalVariable state $STATE_INIT
 
 // Set the stateChange to 0. Based on the current value of $state, the branches will set stateChange before calling their respective draw script. Each state has two scripts: state and change_state. State is called at every tick, and change_state is only called when a state changes. Anything that can be resource-heavy should be done in the change_state script.
 variable stateChange 0

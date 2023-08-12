@@ -5,6 +5,8 @@
 # arg4: MIDI Note
 
 loadScript novation\launchkey\session\constants.ltgs
+print "message: " & $arg1 & ". Status: " & $status & ". Channel: " & $arg3 & ". arg 4: " & $arg4
+
 
 // Handling pad press
 if $arg2 = $STATUS_PRESS

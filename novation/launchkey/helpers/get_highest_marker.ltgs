@@ -1,5 +1,5 @@
 // Gets the current marker, based on where the song bar is.
-// arg1: variable output, value is 0 if none was found.
+// arg1: output variable name, value is 0 if none was found.
 function getHighestMarker
     variable currentHighestMarker 0
     for i 1 $nbMarkers

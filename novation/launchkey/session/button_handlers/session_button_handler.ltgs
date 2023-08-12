@@ -1,6 +1,26 @@
 loadScript novation\launchkey\constants.ltgs
 
-# print "DEBUG - Session Button Handler - note: " & $arg4 & ". Status: " & $arg2 & ". Channel: " & $arg3
+print "DEBUG - Session Button Handler - note: " & $arg4 & ". Status: " & $arg2 & ". Channel: " & $arg3
+
+if $arg4 = $STOP
+    if $arg3 = 16
+        variable playingOrRecording 0
+        if $isPlaying
+            variable playingOrRecording 1
+        endIf
+        if $isRecording
+            variable playingOrRecording 1
+        endIf
+
+        if $playingOrRecording
+            shortcutByID 17
+            setBar $songStartBar
+        else
+            setStartBar 1
+            setBar 1
+        endIf
+    endIf
+endIf
 
 if $arg4 = $UP_ARROW
     loadScript novation\launchkey\session\button_handlers\modes\mode_down.ltgs 

@@ -24,5 +24,6 @@ if $playingOrRecording
     getLoopEnd currentEnd $loopID
     addTemporaryGoToMarker $currentEnd $loopStart 1
 else
+    setStartBar $loopStart
     setBar $loopStart
 endIf 

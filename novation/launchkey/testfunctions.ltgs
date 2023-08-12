@@ -1,3 +1,4 @@
 loadScript novation\launchkey\helpers\get_highest_marker.ltgs
 callFunction getHighestMarker marker
-print "Highest marker: " & $marker
+getMarkerName name $marker
+print "Highest marker: " & $marker & ". name: " & $name

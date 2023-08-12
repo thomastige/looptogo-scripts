@@ -81,3 +81,8 @@ variable    ENCODER_8   28
 
 # Load helper aliases as constants
 loadScript novation\launchkey\helpers\helper_aliases.ltgs
+
+variable STATE_INIT -1
+variable STATE_STOPPED 0
+variable STATE_PLAYING 1
+variable STATE_RECORDING 2
