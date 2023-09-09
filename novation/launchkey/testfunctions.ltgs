@@ -1,6 +1,4 @@
-loadScript novation\launchkey\helpers\math.ltgs
-loadScript novation\launchkey\commands\arpeggiator_commands.ltgs
+loadScript novation\launchkey\helpers\songbar.ltgs
 
-for iterator 2 1000
-    sendMidiCC "LKMK3_2_16" $iterator 4
-endFor
+callFunction getNextLoopEnd currentEnd $selectedLoopID
+print $getNextLoopEnd

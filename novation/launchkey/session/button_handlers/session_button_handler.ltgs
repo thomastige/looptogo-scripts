@@ -1,8 +1,12 @@
 loadScript novation\launchkey\constants.ltgs
 loadScript novation\launchkey\session\button_handlers\helpers\identify_button_press.ltgs 
 loadScript novation\launchkey\data_structures\loop_multimap\get_cursor_location_function.ltgs
+loadScript novation\launchkey\helpers\songbar.ltgs
 
 callFunction identifyButtonPress $arg1 $arg2 $arg3 $arg4 $arg5
+
+variable SESSION_MODE_1 session
+variable SESSION_MODE_2 navigation
 
 if $button = SHIFT
     globalVariable SHIFT_HELD $buttonPressed

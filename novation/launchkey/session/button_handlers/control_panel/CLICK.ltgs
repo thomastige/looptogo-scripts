@@ -1,5 +1,7 @@
 if $SHIFT_HELD
+    # Tap Tempo
     shortcutByID 49
 else
+    Enable/disable click
     shortcutByID 61
 endIf

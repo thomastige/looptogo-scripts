@@ -1,0 +1,19 @@
+// Helper functions based on song bar evaluations.
+
+// $1 - The name of the variable to store the result in
+// $2 - Current loop ID
+function getNextLoopEnd
+    getLoopLink linkedLoop $arg2
+    getLoopStart linkedLoopStart $linkedLoop
+    getLoopEnd linkedLoopEnd $linkedLoop
+    variable linkedLoopLength $linkedLoopEnd - $linkedLoopStart
+    
+    getLoopStart currentLoopStart $arg2
+    variable loopEnd $currentLoopStart
+    while $loopEnd < $songBar
+        variable loopEnd $loopEnd + $linkedLoopLength
+    endWhile
+    print $loopEnd
+    parentVariable $arg1 $loopEnd
+endFunction
+

@@ -21,7 +21,8 @@ endIf
 if $playingOrRecording
     getLoopIDForTrack loopID $selectedTrack $cursorLoopIndex
 
-    getLoopEnd currentEnd $loopID
+    // getLoopEnd currentEnd $loopID
+    callFunction getNextLoopEnd currentEnd $loopID
     addTemporaryGoToMarker $currentEnd $loopStart 1
 else
     setStartBar $loopStart
