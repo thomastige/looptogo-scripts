@@ -1,4 +1,4 @@
-loadScript novation\launchkey\data_structures\loop_multimap\get_cursor_location.ltgs
+callFunction getCursorLocation
 variable padIndex $arg4 - $BOTTOM_ROW_0
 variable _loopPage trackLoopPage_ & $selectedTrack
 variable pageModifier $ROW_LENGTH  * $$_loopPage

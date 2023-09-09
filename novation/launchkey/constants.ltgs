@@ -34,11 +34,14 @@ variable    BOTTOM_ROW_8    119
 variable    PLAY            115
 variable    STOP            116
 variable    RECORD          117
-variable    repeat          118
+variable    REPEAT          118
 variable    CAPTURE_MIDI    74
 variable    QUANTISE        75
 variable    CLICK           76
 variable    UNDO            77
+
+// Shift is the exception - channel 1
+variable    SHIFT           108
 
 // Buttons around the pads
 variable    TRACK_RIGHT     102
@@ -82,7 +85,7 @@ variable    ENCODER_8   28
 # Load helper aliases as constants
 loadScript novation\launchkey\helpers\helper_aliases.ltgs
 
-variable STATE_INIT -1
-variable STATE_STOPPED 0
-variable STATE_PLAYING 1
-variable STATE_RECORDING 2
+variable STATE_INIT         -1
+variable STATE_STOPPED      0
+variable STATE_PLAYING      1
+variable STATE_RECORDING    2

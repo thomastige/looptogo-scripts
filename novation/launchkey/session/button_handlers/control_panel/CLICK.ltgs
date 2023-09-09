@@ -1,0 +1,5 @@
+if $SHIFT_HELD
+    shortcutByID 49
+else
+    shortcutByID 61
+endIf

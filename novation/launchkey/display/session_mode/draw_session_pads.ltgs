@@ -32,7 +32,7 @@ endFor
 
 ### Bottom Row
 # Set Colors - orange for record track, green for play
-loadScript novation\launchkey\data_structures\loop_multimap\get_cursor_location.ltgs
+callFunction getCursorLocation
 
 # print "DEBUG - Session Draw - previousCursorLoopIndex: " & $previousCursorLoopIndex & ". Cursor loop index: " & $cursorLoopIndex ". songBar: " & $songBar
 

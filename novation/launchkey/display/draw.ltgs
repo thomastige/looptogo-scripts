@@ -2,6 +2,7 @@
 loadScript novation\launchkey\drum\draw.ltgs
 loadScript novation\launchkey\helpers\get_highest_marker.ltgs
 loadScript novation\launchkey\display\lcd\write_to_display.ltgs
+loadScript novation\launchkey\data_structures\loop_multimap\get_cursor_location_function.ltgs
 
 while $DRAW_ENABLED = 1
 

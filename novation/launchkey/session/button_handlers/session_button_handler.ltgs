@@ -1,6 +1,12 @@
 loadScript novation\launchkey\constants.ltgs
+loadScript novation\launchkey\session\button_handlers\helpers\identify_button_press.ltgs 
+loadScript novation\launchkey\data_structures\loop_multimap\get_cursor_location_function.ltgs
 
-print "DEBUG - Session Button Handler - note: " & $arg4 & ". Status: " & $arg2 & ". Channel: " & $arg3
+callFunction identifyButtonPress $arg1 $arg2 $arg3 $arg4 $arg5
+
+if $button = SHIFT
+    globalVariable SHIFT_HELD $buttonPressed
+endIf
 
 if $arg4 = $STOP
     if $arg3 = 16
@@ -33,7 +39,6 @@ endIf
 if $SESSION_MODE = 1
     loadScript novation\launchkey\session\button_handlers\session_mode\button_handler.ltgs  
 endIf
-
 
 if $SESSION_MODE = 2
     loadScript novation\launchkey\session\button_handlers\navigation_mode\button_handler.ltgs  

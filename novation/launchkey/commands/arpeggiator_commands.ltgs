@@ -1,0 +1,31 @@
+alias LAUNCHKEY_CONFIG_ARGPEGGIATOR_TYPE 85
+alias LAUNCHKEY_CONFIG_ARPEGGIATOR_RATE 86
+
+globalVariable rate_4      0
+globalVariable rate_8      2
+globalVariable rate_16     4
+globalVariable rate_32     6
+globalVariable rate_3      1
+globalVariable rate_6      3
+globalVariable rate_12     5
+globalVariable rate_24     7
+
+// Arp types and value mappings:
+# 0: Up
+# 1: Down
+# 2: Up/Down
+# 3: As Played
+# 4: Random
+# 5: Chord
+# 6: Mutate
+
+function setType
+    sendMidiCC "LKMK3_2_1"  LAUNCHKEY_CONFIG_RATE $$arg1
+endFunction
+
+// Rates are the denominators - 4, 8, 16 or 32 for 4/4. Also supported is 3, 6, 12, 24. 
+function setRate
+    variable rate "rate_" & $arg1
+    print $rate
+    sendMidiCC "LKMK3_2_1"  LAUNCHKEY_CONFIG_ARPEGGIATOR_RATE $$rate
+endFunction

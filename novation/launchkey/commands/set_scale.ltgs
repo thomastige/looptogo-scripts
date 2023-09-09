@@ -1,57 +1,60 @@
-// Put this in a marker at the beginning of a song to switch to the desired scale
+// ${1} - the scale
+function setScale
+    // Put this in a marker to switch to the desired scale on the keyboard
 
-variable SCALE_A    9
-variable SCALE_A#   10
-variable SCALE_Bb   10
-variable SCALE_B    11
-variable SCALE_C    0
-variable SCALE_C#   1
-variable SCALE_Db   1
-variable SCALE_D    2
-variable SCALE_D#   3
-variable SCALE_Eb   3
-variable SCALE_E    4
-variable SCALE_F    5
-variable SCALE_F#   6
-variable SCALE_Gb   6
-variable SCALE_G    7
-variable SCALE_G#   8
-variable SCALE_Ab   8
+    variable SCALE_A    9
+    variable SCALE_A#   10
+    variable SCALE_Bb   10
+    variable SCALE_B    11
+    variable SCALE_C    0
+    variable SCALE_C#   1
+    variable SCALE_Db   1
+    variable SCALE_D    2
+    variable SCALE_D#   3
+    variable SCALE_Eb   3
+    variable SCALE_E    4
+    variable SCALE_F    5
+    variable SCALE_F#   6
+    variable SCALE_Gb   6
+    variable SCALE_G    7
+    variable SCALE_G#   8
+    variable SCALE_Ab   8
 
-getNbCharacters length $arg1
+    getNbCharacters length $arg1
 
 
-getCharacterAt scale    $arg1  1
+    getCharacterAt scale    $arg1  1
 
-getCharacterAt accidental    $arg1  2
+    getCharacterAt accidental    $arg1  2
 
-// Identify scale
-if $accidental = #
-    variable scale $scale & $accidental
-else
-    if $accidental = b
+    // Identify scale
+    if $accidental = #
         variable scale $scale & $accidental
+    else
+        if $accidental = b
+            variable scale $scale & $accidental
+        endIf
     endIf
-endIf
 
-// Determine scale length - either 1 (no accidental) or 2 (with accidental)
-getNbCharacters scaleLength $scale
+    // Determine scale length - either 1 (no accidental) or 2 (with accidental)
+    getNbCharacters scaleLength $scale
 
-// Find mode
-variable modeIndex $scaleLength + 1
-getCharacterAt mode $arg1 $modeIndex
+    // Find mode
+    variable modeIndex $scaleLength + 1
+    getCharacterAt mode $arg1 $modeIndex
 
-// Only supporting minor mode for now
-if $mode = m
-    variable midiMode 0
-else   
-    // only support minors for now
-    variable midiMode 1
-endIf
+    // Only supporting minor mode for now
+    if $mode = m
+        variable midiMode 0
+    else   
+        // only support minors for now
+        variable midiMode 1
+    endIf
 
-// Get the scale value for midi message
-variable _midiScale SCALE_ & $scale
+    // Get the scale value for midi message
+    variable _midiScale SCALE_ & $scale
 
-// Send messages to Launchkey
-sendMidiCC "LKMK3_2_16" 15 $midiMode
-sendMidiCC "LKMK3_2_16" 16 $$_midiScale
+    // Send messages to Launchkey
+    sendMidiCC "LKMK3_2_16" 15 $midiMode
+    sendMidiCC "LKMK3_2_16" 16 $$_midiScale
+endFunction

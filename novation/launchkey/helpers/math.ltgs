@@ -1,0 +1,35 @@
+// $1 - The name of the variable in which the modulo will be stored
+// $2 - The number to be evaluated
+// $3 - The number against which to evaluate
+function modulo
+    # print "arg 1: " & $arg1 & ", arg 2: " & $arg2 & ". arg 3: " & $arg3
+    variable divisionResult $arg2 / $arg3
+    callFunction floor divisionResultFloor $divisionResult
+    # print "division result: " & $divisionResult & ". floor: " & $divisionResultFloor
+    variable floor $divisionResultFloor * $arg3
+    # print "floor: " & $floor
+    variable moduloResult $arg2 - $floor
+    # print "modulo result: " & $moduloResult
+    parentVariable $arg1 $moduloResult
+endFunction
+
+// $1 The name of the variable in which the floor will be stored
+// $2 The decimal number for which to find the floor
+function floor
+    # print "arg 1: " & $arg1 & ". arg 2: " & $arg2
+    variable decimal 0
+    variable result ""
+    getNbCharacters length $arg2
+    variable currentCharacterIndex 1
+    while $decimal = 0
+        getCharacterAt currentCharacter $arg2 $currentCharacterIndex 
+        if $currentCharacter = .
+            variable decimal 1
+        else
+            variable result $result & $currentCharacter
+            variable currentCharacterIndex $currentCharacterIndex + 1
+        endIf
+    endWhile
+    parentVariable $arg1 $result
+    # print "result: " & $result
+endFunction

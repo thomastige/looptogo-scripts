@@ -1,4 +1,6 @@
-loadScript novation\launchkey\helpers\get_highest_marker.ltgs
-callFunction getHighestMarker marker
-getMarkerName name $marker
-print "Highest marker: " & $marker & ". name: " & $name
+loadScript novation\launchkey\helpers\math.ltgs
+loadScript novation\launchkey\commands\arpeggiator_commands.ltgs
+
+for iterator 2 1000
+    sendMidiCC "LKMK3_2_16" $iterator 4
+endFor

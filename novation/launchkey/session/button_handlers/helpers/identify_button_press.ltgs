@@ -1,0 +1,27 @@
+// Inputs are the messages as sent by the LTG Event Handler
+// Arguments coming from LoopToGo.
+// arg1: Message (likely always Command)
+// arg2: Status - 144 is Note ON, and 128 is Note OFF.
+// arg3: Channel
+// arg4: MIDI Note
+// arg5: Velocity
+//
+// Two outputs:
+// $button - the name of the button, as an uppercase string.
+// $buttonPressed - whether the button was pressed (1) or depressed (0)
+function identifyButtonPress
+    if $arg3 = 1
+        if $arg4 = 108
+            parentVariable button SHIFT
+        endIf
+    endIf
+    if $arg3 = 16
+
+    endIf
+
+    if $arg5 = 0
+        parentVariable buttonPressed 0
+    else
+        parentVariable buttonPressed 1
+    endIf
+endFunction

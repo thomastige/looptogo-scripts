@@ -1,0 +1,46 @@
+// DEPRECATED - Use the one in Entrypoints
+
+// Provide arguments to this script, e.g. "arp on drums on" or "arp off chords on"
+// options:
+// arp on/off - turn arpeggiator on/off
+// pads session/chords/drums - switch the pad mode 
+// scale - Provide a scale, which will be set on the Launchkey - e.g. "scale Am"
+
+loadScript novation\launchkey\commands\set_scale.ltgs
+loadScript novation\launchkey\helpers\math.ltgs
+
+variable counter 1
+variable _argKey "arg" & $counter
+while $$_argKey
+    variable valueIndex $counter + 1
+    variable _argValue "arg" & $valueIndex
+    // arpeggiator
+    if $$_argKey = arp
+        if $$_argValue = on
+            loadScript novation\launchkey\commands\enable_arpeggiator.ltgs
+        else
+            loadScript novation\launchkey\commands\disable_arpeggiator.ltgs
+        endIf
+    endIf
+
+    // pads
+    if $$_argKey = pads
+        if $$_argValue = session
+            loadScript novation\launchkey\commands\switch_to_session.ltgs
+        endIf
+        if $$_argValue = chords
+            loadScript novation\launchkey\commands\switch_to_chords.ltgs
+        endIf
+        if $$_argValue = drums
+            loadScript novation\launchkey\commands\switch_to_drums.ltgs
+        endIf
+    endIf
+
+    // pads
+    if $$_argKey = scale
+        callFunction setScale $$_argValue
+    endIf
+    
+    variable counter $counter + 2
+    variable _argKey "arg" & $counter
+endWhile

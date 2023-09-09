@@ -1,0 +1,25 @@
+{
+  "name": "ltgs",
+  "displayName": "ltgs",
+  "description": "",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.81.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "ltgs",
+      "aliases": ["LoopToGo Scripting Language", "ltgs"],
+      "extensions": [".ltgs",".txt"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "ltgs",
+      "scopeName": "source.ltgs",
+      "path": "./syntaxes/ltgs.tmLanguage.json"
+    }]
+  }
+}

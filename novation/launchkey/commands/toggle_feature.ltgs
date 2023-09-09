@@ -1,0 +1,16 @@
+// constants
+// Arpeggiator feature
+variable FEATURE_ARPEGGIATOR_INDEX      110
+variable FEATURE_ARPEGGIATOR_DEVICE     "LMK3_2_1"
+variable FEATURE_ARPEGGIATOR_ON         1
+variable FEATURE_ARPEGGIATOR_OFF        0
+
+// ${1} - feature to enable/disable
+// ${2}: boolean - true to enable, false to disable
+function enableArpeggiator
+    sendMidiCC $FEATURE_ARPEGGIATOR_DEVICE $FEATURE_ARPEGGIATOR_INDEX $FEATURE_ARPEGGIATOR_ON
+endFunction
+
+function disableArpeggiator
+    sendMidiCC $FEATURE_ARPEGGIATOR_DEVICE $FEATURE_ARPEGGIATOR_INDEX $FEATURE_ARPEGGIATOR_OFF
+endFunction
