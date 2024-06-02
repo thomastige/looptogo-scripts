@@ -1,0 +1,2 @@
+loadScript bass\gt1b\set_patch.ltgs
+callFunction changePatch $arg1

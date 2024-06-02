@@ -1,8 +1,13 @@
-// Provide arguments to this script, e.g. "arp on drums on" or "arp off chords on"
+// Provide arguments to this script, e.g. "arp on drums on" or "arp off chords on". All arguments are optional.
 // options:
 // arp on/off - turn arpeggiator on/off
 // pads session/chords/drums - switch the pad mode 
 // scale - Provide a scale, which will be set on the Launchkey - e.g. "scale Am"
+
+// Example usage: create a Script Marker marker with the following arguments:
+//      Script Marker: novation/launchkey/commands/multi-commands.ltgs
+//      Arguments: arp off pads drums scale A
+
 
 loadScript novation\launchkey\commands\set_scale.ltgs
 loadScript novation\launchkey\helpers\math.ltgs

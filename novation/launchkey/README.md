@@ -27,3 +27,7 @@ The functionality related to the pads and some buttons on the LaunchKey are trig
 
 ## Markers
 Some scripts are intended to be used by markers. These scripts are used to manipulate the configuration of the LaunchKey throughout a song, e.g. change the pads to drum mode before a specific section in a song, or to enable/disable the arpeggiator.
+
+# User Guide
+## Navigation buttons
+* Play: play the loop, starting from the tick

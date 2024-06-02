@@ -1,0 +1,91 @@
+%YAML 1.2
+---
+# See http://www.sublimetext.com/docs/syntax.html
+name: LoopToGo Script
+file_extensions:
+  - ltgs
+scope: source.ltgs
+variables:
+  keyword: \b(?:variable|if|else|endIf)\b
+
+contexts:
+  main:
+    # Strings begin and end with quotes, and use backslashes as an escape
+    - match: ''
+      push: [statements]
+
+  statements:
+    - include: character
+    - include: comments
+    - include: keywords
+    - include: numbers
+    - include: double_quoted_string
+    - include: line_comment
+    - include: variable_access
+    - include: expressions
+    - include: booleans
+    - include: functions
+
+  character:
+  - match: '"'
+    scope: punctuation.definition.string.begin.ltgs
+    push: double_quoted_string
+
+  comments:
+  - match: '//|\#'
+    scope: punctuation.definition.comment.ltgs
+    push: line_comment
+
+  keywords:
+  - match: '{{keyword}}'
+    scope: keyword.control.ltgs
+
+  numbers:
+  - match: '\b(-)?[0-9.]+\b'
+    scope: constant.numeric.ltgs
+
+  double_quoted_string:
+    - meta_scope: string.quoted.double.ltgs
+    - match: '\\.'
+      scope: constant.character.escape.ltgs
+    - match: '"'
+      scope: punctuation.definition.string.end.ltgs
+      pop: true
+
+  line_comment:
+    - meta_scope: comment.line.ltgs
+    - match: $
+      pop: true
+
+  variable_access:
+    - match: '\$'
+      scope: punctuation.definition.variable
+
+  expressions:
+    - match: \(
+      scope: punctuation.section.group.begin.ltgs
+      push:
+        - meta_scope: meta.group.ltgs
+        - match: \)
+          scope: punctuation.section.group.end.ltgs
+          pop: 1
+        - include: expressions
+    # multi char operators
+    - match: '[-+*/%&|^]=|<<=|>>='
+      scope: keyword.operator.assignment.augmented.ltgs
+    - match: '<<|>>'
+      scope: keyword.operator.bitwise.ltgs
+    - match: '<=?|>=?|[=!]='
+      scope: keyword.operator.comparison.ltgs
+    - match: '&&|\|\||!'
+      scope: keyword.operator.logical.ltgs
+    - match: '[*/+-]'
+      scope: keyword.operator.arithmetic.ltgs
+
+  booleans:
+    - match: 'true|false'
+      scope: constant.language.ltgs
+
+  functions:
+    - match: '[a-zA-Z]'
+      scope: meta.function-call.identifier.ltgs

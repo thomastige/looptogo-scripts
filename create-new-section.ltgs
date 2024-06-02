@@ -43,7 +43,7 @@ if $recordTrackEnabled = true
     variable recordLength $barCount * $numberOfRecordLoops
     variable recordEnd $recordStart + $barCount
 
-    addRecordLoop "Test" $sectionName $recordStart $recordEnd
+    addRecordLoop "Test" $sectionName $recordStart $recordEnd 
     
     variable playStart $recordStart + $barCount
 else

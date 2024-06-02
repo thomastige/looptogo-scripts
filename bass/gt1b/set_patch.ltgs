@@ -1,0 +1,53 @@
+// Useful documentation: 
+// https://www.roland.com/fr-ca/support/knowledge_base/360031884432/
+// https://www.vguitarforums.com/smf/index.php?topic=21864.0
+// https://www.vguitarforums.com/smf/index.php?topic=22578.0
+// Structure of the sysex commands:
+# F0 - All SysEx commands start with this
+# 41 - Roland's Manufacturer ID
+# 10 - The V-1HD's default device ID
+# 00 00 00 20 - The V-1HD's model ID (note this is 4 bytes instead of 1)
+# 12 - Command ID for sending commands
+# 71 00 08 - This is the command address for selecting an input on the A Bus
+# 00 - This is the value for that command, which corresponds to input 1
+# 07 - This is the checksum, which you need to calculate separately for each command to work
+# F7 - All SysEx commands end with this
+
+// Constants
+alias message_start "F0 41 00 00 00 00 3E "
+alias change_patch_command "12 00 01 00 00 00 "
+alias message_end "F7"
+
+# $1 - The Patch being selected
+function changePatch
+    
+    // Mappings from patch number to patches. Note that when the patch goes up, the checksum goes down.
+    variable patch_1 00
+    variable checksum_1 7F
+
+    variable patch_2 01
+    variable checksum_2 7E
+
+    variable patch_3 02
+    variable checksum_3 7D
+
+    variable patch_4 03
+    variable checksum_4 7C
+
+    variable patch_5 04
+    variable checksum_5 7B
+
+    variable patch_6 05
+    variable checksum_6 7A
+
+    variable patch_7 06
+    variable checksum_7 6F
+
+    variable patch_99 62
+    variable checksum_99 1D
+
+    variable patchAlias patch_ & $arg1
+    variable checksumAlias checksum_ & $arg1
+    print message_start & change_patch_command & $$patchAlias & " " & $$checksumAlias & " " & message_end
+    sendMidiRawBytes "GT-1B" message_start & change_patch_command & $$patchAlias & " " & $$checksumAlias & " " & message_end
+endFunction

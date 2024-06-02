@@ -1,0 +1,15 @@
+variable playingOrRecording 0
+if $isPlaying
+    variable playingOrRecording 1
+endIf
+if $isRecording
+    variable playingOrRecording 1
+endIf
+
+if $playingOrRecording
+    shortcutByID 17
+    setBar $songStartBar
+else
+    setStartBar 1
+    setBar 1
+endIf
