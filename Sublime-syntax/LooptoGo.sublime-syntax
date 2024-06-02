@@ -8,6 +8,8 @@ scope: source.ltgs
 variables:
   keyword: \b(?:variable|if|else|endIf)\b
 
+  predeclared_functions: \b(?:activeAnalyseCpuUsage|addChain|addChangeTempoMarker|addCustomGridLine|addFunctionMarker|addGoToMarker|addJamMarker|addMidiMapper|addMidiMapper|addPauseMarker|addPlayLoop|addPlugin|addRecordLoop|addScriptMarker|addSectionMarker|addStopMarker|addTemporaryFunctionMarker|addTemporaryGoToMarker|addTemporaryPauseMarker|addTemporaryScriptMarker|addTemporarySectionMarker|addTemporaryStopMarker|addVirtualMidiDevice|alias|armRecord|callFunction|clearSelectedLoops|compareSongs|convertDecimalsToHex|convertStringToHex|cutLoop|deleteAllLoops|deleteAllMarkers|deleteAllMidiMappers|deleteLoop|deleteLoop|deleteMarker|deleteMarker|deleteSelectedLoops|deleteSelectedMarkers|deleteSelectedMarkers|deleteTrack|deleteTrack|deleteVirtualMidiDevice|doNothing|else|endFor|endFunction|endIf|endNamespace|endScript|endScriptDynamic|endWhile|exitFunction|for|function|getBankInfo|getCharacterAt|getLoopColor|getLoopEnd|getLoopEndOfData|getLoopIDForTrack|getLoopJamState|getLoopLink|getLoopLockState|getLoopName|getLoopNextJamState|getLoopOverdubRatio|getLoopStart|getLoopStartOfData|getLoopTrack|getLoopType|getMarkerActiveState|getMarkerBar|getMarkerName|getMarkerParameter|getMarkerType|getNbCharacters|getNbLoopsForTrack|getNbOfSongsInPlaylist|getScriptState|getSongFromPlaylist|getTrackActiveState|getTrackColor|getTrackPosition|getTrackVolume|getTrackVolumeFader|getVolumeSliderMaxValue|globalVariable|if|ifNot|jumpTo|killScript|loadScript|loadScriptDynamic|loadSong|namespace|parentVariable|playMidi|playMidiNoteOff|playMidiNoteOn|print|printCpuUsage|printInBlockingMessageBox|printInMessageBox|quantizeTrack|regexReplace|removeAllCustomGridLines|removeCustomGridLine|reorderChains|resetCpuUsage|resetThresholds|saveTestResults|selectLoop|selectMarker|selectTrack|sendMidiCC|sendMidiNoteOff|sendMidiNoteOn|sendMidiPC|sendMidiRawBytes|setAudioInputs|setAudioOutputs|setAudioTapTo|setBar|setBufferTransitionWidth|setChainColor|setChainPan|setChainPan|setChainRecordPlayMonitorMode|setChainStopMonitorMode|setChainType|setChainVolume|setChainVolumeDB|setClearAllLoopsAtStartRecordBar1|setFreeTempoLowerLimit|setFreeTempoMode|setGridLinesVisibility|setLoopDataThreshold|setLoopDelay|setLoopJamState|setLoopLockState|setLoopNextJamState|setLoopOverdubRatio|setLoopStartAndEnd|setMainVolume|setMarkerActiveState|setMarkerBar|setMarkerColor|setMarkerName|setMasterTapeContinousRecording|setMetronomeAllSongsVolume|setMetronomeAlwaysOnPlay|setMetronomeAlwaysOnRecord|setMetronomeFirstTickFile|setMetronomeNbTickAfterPlay|setMetronomeNbTickAfterRecord|setMetronomeNbTickBeforePlay|setMetronomeNbTickBeforeRecord|setMetronomeOtherTicksFile|setMetronomeVolume|setMidiInputs|setMidiOutputs|setMidiPreRecordBar|setMuteLoopWhileRecording|setOtherChainOutput|setPluginActiveState|setPrintingOff|setPrintingOn|setScriptBar|setScriptConcurrencyMode|setScriptName|setScriptStopMode|setStartBar|setTempo|setTestName|setThresholds|setTimeStampOff|setTimeStampOn|setTrackActiveState|setTrackPan|setTrackRecordPlayMonitorMode|setTrackStopMonitorMode|setTrackVolume|setTrackVolumeDB|setUserArgs|shareChain|shortcut|shortcutByID|showErrorAndLogConsole|skipIfAlreadyLoaded|spawnScript|startJamMode|unselectAllLoops|unselectAllMarkers|unshareChain|userShortcut|variable|variableInputPrompt|waitDelta|waitDeltaTime|waitForScriptCompletion|waitForSection|waitForSongPause|waitForSongStop|waitTilScriptBar|waitTilSongBar|while|arg1|arg2|arg3|arg4|arg5|arg6|arg7|arg8|arg9|arg10|bottomNumber|currentSection|currentSectionEnd|currentSectionName|currentSectionStart|isArmedForRecording|isInJamMode|isPaused|isPlaying|isRecording|lastCreatedLoopID|lastCreatedMarkerID|lastCreatedPlayLoopID|lastCreatedRecordLoopID|loopID1|loopID2|loopID3|loopID4|loopID5|loopID6|mainVolume|markerID1|markerID2|markerID3|markerID4|markerID5|markerID6|$namespaceScope|namespaceScope|nbArgs|nbLoops|nbMarkers|nbOfSelectedLoops|nbSections|nbTracks|nbUserArgs|nextSection|scriptBar|scriptFileName|scriptID|scriptLineNumber|scriptName|sectionEnd1|sectionEnd2|sectionEnd3|sectionEnd4|sectionEnd5|sectionEnd6|sectionStart1|sectionStart2|sectionStart3|sectionStart4|sectionStart5|sectionStart6|selectedChain|selectedLoopEnd|selectedLoopID|selectedLoopID1|selectedLoopID2|selectedLoopID3|selectedLoopID4|selectedLoopID5|selectedLoopID6|selectedLoopName|selectedLoopStart|selectedSectionEnd|selectedSectionName|selectedSectionStart|selectedTrack|songBar|songStartBar|songStartTick|songTick|sysTime|tempo|topNumber|trackID1|trackID2|trackID3|trackID4|trackID5|trackID6|trackName1|trackName2|trackName3|trackName4|trackName5|trackName6|userArg1|userArg2|userArg3|userArg4|userArg5|userArg6)\b
+
 contexts:
   main:
     # Strings begin and end with quotes, and use backslashes as an escape
@@ -62,23 +64,6 @@ contexts:
       scope: punctuation.definition.variable
 
   expressions:
-    - match: \(
-      scope: punctuation.section.group.begin.ltgs
-      push:
-        - meta_scope: meta.group.ltgs
-        - match: \)
-          scope: punctuation.section.group.end.ltgs
-          pop: 1
-        - include: expressions
-    # multi char operators
-    - match: '[-+*/%&|^]=|<<=|>>='
-      scope: keyword.operator.assignment.augmented.ltgs
-    - match: '<<|>>'
-      scope: keyword.operator.bitwise.ltgs
-    - match: '<=?|>=?|[=!]='
-      scope: keyword.operator.comparison.ltgs
-    - match: '&&|\|\||!'
-      scope: keyword.operator.logical.ltgs
     - match: '[*/+-]'
       scope: keyword.operator.arithmetic.ltgs
 
@@ -87,5 +72,5 @@ contexts:
       scope: constant.language.ltgs
 
   functions:
-    - match: '[a-zA-Z]'
-      scope: meta.function-call.identifier.ltgs
+    - match: '{{predeclared_functions}}'
+      scope: variable.function.ltgs support.function.builtin.ltgs
